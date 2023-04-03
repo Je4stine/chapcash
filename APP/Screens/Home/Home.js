@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from './HomeHeader';
 import Stats from './Stats';
+import Pending from './Pending/Pending';
+import Complete from './Complete/Complete';
 
 const Home = () => {
   const [index, setIndex]=useState(1);
@@ -19,6 +21,11 @@ const Home = () => {
         <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Pending</Text></TouchableOpacity>
         <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Confirmed</Text></TouchableOpacity>
       </View>
+      { index===1?<Pending/>:null
+      }
+      {
+         index===2?<Complete/>:null
+      }
     </SafeAreaView>
   );
 };
