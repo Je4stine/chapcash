@@ -10,6 +10,8 @@ const Pending = () => {
       <Message/>
       <Message/>
       <Message/>
+      <Message/>
+      <Message/>
     </View>
   )
 };
@@ -24,7 +26,9 @@ const styles = StyleSheet.create({
         
     },
     text1:{
-        fontWeight:'bold',
-        color:'#136207'
+        color:'#136207',
+        fontFamily:'Hank_black',
+        fontSize:18,
+        marginTop:20
     }
 })

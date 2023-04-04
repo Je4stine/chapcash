@@ -1,10 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import React from 'react';
+import React, {useRef} from 'react';
 import { SwipeItem, SwipeButtonsContainer, SwipeProvider } from 'react-native-swipe-item';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 
 const Message = () => {
+    const navigation = useNavigation();
+    
+    const itemRef = useRef(null);
+
+    // itemRef.current.close();
+
     const rightButton = (
         <SwipeButtonsContainer
             style={{
@@ -14,9 +21,9 @@ const Message = () => {
                 padding: 10,
             }}>
             <TouchableOpacity
-                onPress={() => console.log('right button clicked')} style={{ }}>
+                onPress={() => navigation.navigate('Confirm')} style={{ }}>
                 {/* <MaterialCommunityIcons name="text-box-check-outline" size={24} color="#136207" /> */}
-                <MaterialCommunityIcons name="text-box-remove-outline" size={24} color="red" />
+                <MaterialCommunityIcons name="text-box-remove-outline" size={24} color="#ff0000" />
             </TouchableOpacity>
         </SwipeButtonsContainer>
     );
@@ -26,17 +33,19 @@ const Message = () => {
             <SwipeItem
                 style={styles.button}
                 swipeContainerStyle={styles.swipeContentContainerStyle}
-                rightButtons={rightButton}>
+                rightButtons={rightButton}
+                ref={itemRef}
+                >
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <View style={{ backgroundColor:'red', padding:8, borderRadius:28, marginRight:10}}><Text style={{ color:'#fff',fontWeight:'bold',}}>KM</Text></View>
+                    <View style={{ backgroundColor:'#ff0000', padding:8, borderRadius:28, marginRight:10}}><Text style={{ color:'#fff',fontFamily:'Hank_black', fontSize:20}}>KM</Text></View>
                     <View>
-                        <Text style={{ fontWeight:'bold', color:'#136207', fontSize:15}}>Kevin Morias</Text>
-                        <Text style={{ fontWeight:'bold', color:'gray', fontSize:12}}>07***18032</Text>
+                        <Text style={{ fontFamily:'Hank_black', color:'#136207', fontSize:18}}>Kevin Morias</Text>
+                        <Text style={{ fontFamily:'Hank_bold', color:'gray', fontSize:15}}>07***18032</Text>
                     </View>
                 </View>
                 <View>
-                    <Text style={{ fontWeight:'bold', color:'#136207', fontSize:15}}>+Ksh. 2,300</Text>
-                    <Text style={{alignSelf:"flex-end", fontWeight:'bold', color:'gray', fontSize:12}}>8.28AM</Text>
+                    <Text style={{ fontFamily:'Hank_black' , color:'#136207', fontSize:18}}>+Ksh. 2,300</Text>
+                    <Text style={{alignSelf:"flex-end",fontFamily:'Hank_black', color:'gray', fontSize:15}}>8.28AM</Text>
                 </View>
 
             </SwipeItem>

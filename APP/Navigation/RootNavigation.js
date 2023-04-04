@@ -11,6 +11,8 @@ import { Feather } from '@expo/vector-icons';
 import Home from '../Screens/Home/Home';
 import Wallet from '../Screens/Wallet/Wallet';
 import Users from '../Screens/Users/Users';
+import Confirm from '../Screens/Home/Confirmation/Confirm';
+import Confirmed from '../Screens/Home/Confirmation/Confirmed';
 
 
 const Stack = createStackNavigator();
@@ -38,8 +40,8 @@ function BottomTabs() {
       >
         <Tab.Screen name="Home" component={Home} 
           options = {{
-            tabBarActiveTintColor:"#136207",
-            tabBarInactiveTintColor:'#90EE90',
+            tabBarActiveTintColor:"#01722E",
+            tabBarInactiveTintColor:'#5AB500',
             title:'Home',
             tabBarIcon: ({ color, size, backgroundColor }) => (
               <Octicons name="home" size={size} color={color} />
@@ -49,8 +51,8 @@ function BottomTabs() {
         />
         <Tab.Screen name="Wallet" component={Wallet} 
           options = {{
-            tabBarActiveTintColor:"#136207",
-            tabBarInactiveTintColor:'#90EE90',
+            tabBarActiveTintColor:"#01722E",
+            tabBarInactiveTintColor:'#5AB500',
             title:'Wallet',
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="ios-wallet-outline" size={size} color={color} />
@@ -60,8 +62,8 @@ function BottomTabs() {
         />
         <Tab.Screen name="Users" component={Users} 
           options = {{
-            tabBarActiveTintColor:"#136207",
-            tabBarInactiveTintColor:'#90EE90',
+            tabBarActiveTintColor:"#01722E",
+            tabBarInactiveTintColor:'#5AB500',
             tabBarLabel:'Users',
             title:'',
             tabBarIcon: ({ color, size }) => (
@@ -81,6 +83,8 @@ function BottomTabs() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
+          <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
+          <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
         </Stack.Navigator>
       </NavigationContainer>
     )

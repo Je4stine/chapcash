@@ -50,10 +50,12 @@ const styles = StyleSheet.create({
     },
     activeText:{
       color:'#fff',
-      fontWeight:'bold'
+      fontFamily:'Hank_black',
+      fontSize:20
     },
     inactiveText:{
       color:'#136207',
-      fontWeight:'bold'
+      fontFamily:'Hank_black',
+      fontSize:20
     }
 })
