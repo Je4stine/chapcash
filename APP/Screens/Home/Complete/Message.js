@@ -30,7 +30,7 @@ const Message = () => {
                 swipeContainerStyle={styles.swipeContentContainerStyle}
                 rightButtons={rightButton}>
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <View style={{ backgroundColor:'#5AB500', padding:8, borderRadius:28, marginRight:10}}><Text style={{ color:'#fff',fontFamily:'Hank_black', fontSize:20}}>KM</Text></View>
+                    <View style={{ backgroundColor:'#5AB500', padding:8, borderRadius:28, marginRight:10}}><Text style={{ color:'#fff',fontFamily:'Hank_black', fontSize:16}}>KM</Text></View>
                     <View>
                         <Text style={{ fontFamily:'Hank_black', color:'#136207', fontSize:18}}>Kevin Morias</Text>
                         <Text style={{ fontFamily:'Hank_bold', color:'gray', fontSize:15}}>07***18032</Text>
@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor:'#f4fdf4',
+        backgroundColor:'#EFFAE5',
     }
 });

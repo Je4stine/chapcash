@@ -18,7 +18,7 @@ const Confirm = ({ navigation}) => {
       <TouchableOpacity onPress={()=>navigation.goBack()} style={{ position:'absolute', top:50, left:20 }}>
           <Feather name="arrow-left" size={24} color="black" />
       </TouchableOpacity>
-      <View style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#fff', width:'90%', paddingVertical:20}}>
+      <View style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#fff', width:'90%', paddingVertical:20, borderRadius:20}}>
             
             <View style={styles.regx}>
                 <Text style={{ color:'#ffff', fontSize:20, fontFamily:'Hank_bold'}}>KM</Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         flex:1,
-        backgroundColor:'#FBFFF8'
+        backgroundColor:'#EFFAE5'
     },
     regx:{
         height:60,

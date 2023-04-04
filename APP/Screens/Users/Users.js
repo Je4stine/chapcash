@@ -2,17 +2,17 @@ import { View, Text, TouchableOpacity, StyleSheet, Switch } from 'react-native';
 import React, {useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeHeader from '../Home/HomeHeader';
+import Active from './Active';
+import Inactive from './Inactive';
 
 const Users = () => {
   const [index, setIndex]=useState(1);
-  const [isEnabled, setIsEnabled] = useState(false);
+ 
 
   const handleToggle =(index)=>{
     setIndex(index)
   };
 
-  
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <SafeAreaView>
@@ -21,15 +21,12 @@ const Users = () => {
           <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Active</Text></TouchableOpacity>
           <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Inactive</Text></TouchableOpacity>
         </View>
-        <View style={{ padding:20, borderBottomColor:'gray', borderBottomWidth:1, width:'90%', alignSelf:'center', justifyContent:'space-between',alignItems:'center',flexDirection:'row'}}>
-          <Text>Activate all</Text>
-          <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
+        <View>
+          { index===1?<Active/>:null
+          }
+          {
+            index===2?<Inactive/>:null
+          }
         </View>
     </SafeAreaView>
   )
