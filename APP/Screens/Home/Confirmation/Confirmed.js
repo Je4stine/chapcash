@@ -26,7 +26,7 @@ const Confirmed = ({ navigation}) => {
           <Text style={{ fontFamily:'Hank_bold', fontSize:20, color:'#01722E', marginBottom:10}}>Kevin Moriasi</Text>
           <View style={{ flexDirection:'row', marginBottom:10}}>
             <Text style={{ marginTop:5, fontFamily:'Hank'}}>Ksh.</Text>
-            <Text style={{ fontSize:30, fontFamily:'Hank_black'}}>3,500</Text>
+            <Text style={{ fontSize:30, fontFamily:'Novera-black', color:'#01722E'}}>3,500</Text>
             <Text style={{ marginTop:5, fontFamily:'Hank'}}>.00</Text>
           </View>
           <View style={{ paddingHorizontal:30,paddingVertical:8, marginBottom:10,backgroundColor:'#FBFFF8', borderRadius:20, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>

@@ -13,6 +13,9 @@ import Wallet from '../Screens/Wallet/Wallet';
 import Users from '../Screens/Users/Users';
 import Confirm from '../Screens/Home/Confirmation/Confirm';
 import Confirmed from '../Screens/Home/Confirmation/Confirmed';
+import OnBoarding1 from '../Screens/Onboarding/OnBoarding1';
+import OnBoarding2 from '../Screens/Onboarding/OnBoarding2';
+import OnBoarding3 from '../Screens/Onboarding/OnBoarding3';
 
 
 const Stack = createStackNavigator();
@@ -82,6 +85,9 @@ function BottomTabs() {
     return(
       <NavigationContainer>
         <Stack.Navigator>
+          <Stack.Screen name='Onboarding1' component={OnBoarding1} options={{headerShown:false}}/>
+          <Stack.Screen name='Onboarding2' component={OnBoarding2} options={{headerShown:false}}/>
+          <Stack.Screen name='Onboarding3' component={OnBoarding3} options={{headerShown:false}}/>
           <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
           <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
           <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>

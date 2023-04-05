@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React,{ useCallback} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import MainStack from './APP/Navigation/RootNavigation';
-import Confirm from './APP/Screens/Home/Confirmation/Confirm';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -13,6 +13,9 @@ export default function App() {
     'Hank': require('./APP/Assets/Fonts/HankRnd-Regular.ttf'),
     'Hank_bold': require('./APP/Assets/Fonts/HankRnd-Bold.ttf'),
     'Hank_black': require('./APP/Assets/Fonts/HankRnd-Black.ttf'),
+    'Novera-bold': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicbold.otf'),
+    'Novera-black': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicblack.otf'),
+    'Novera': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicregular.otf')
   });
 
   const onLayoutRootView = useCallback(async () => {
