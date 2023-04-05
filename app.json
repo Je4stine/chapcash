@@ -5,7 +5,12 @@
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "673d3c99-830a-4af9-800e-361e16d1d2e2"
+      }
+    }
   },
   "splash": {
     "image": "./APP/Assets/Images/splashscreen_image.png",

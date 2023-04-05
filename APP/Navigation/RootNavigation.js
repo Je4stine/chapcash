@@ -17,6 +17,10 @@ import OnBoarding1 from '../Screens/Onboarding/OnBoarding1';
 import OnBoarding2 from '../Screens/Onboarding/OnBoarding2';
 import OnBoarding3 from '../Screens/Onboarding/OnBoarding3';
 
+import useGetOnboardingStatus from '../Utils/Onboard';
+
+
+
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -82,12 +86,13 @@ function BottomTabs() {
 
 
   function MainStack(){
+    const { isFirstLaunch, isLoading: onboardingIsLoading } = useGetOnboardingStatus();
     return(
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name='Onboarding1' component={OnBoarding1} options={{headerShown:false}}/>
-          <Stack.Screen name='Onboarding2' component={OnBoarding2} options={{headerShown:false}}/>
-          <Stack.Screen name='Onboarding3' component={OnBoarding3} options={{headerShown:false}}/>
+          <Stack.Screen name='Onboarding1' component={OnBoarding1} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}} />
+          <Stack.Screen name='Onboarding2' component={OnBoarding2} options={{headerShown:false,presentation: 'transparentModal' ,animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='Onboarding3' component={OnBoarding3} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
           <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
           <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
           <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>

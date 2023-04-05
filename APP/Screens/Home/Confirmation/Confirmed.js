@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import React, { useState} from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -9,7 +9,8 @@ const Confirmed = ({ navigation}) => {
   const [copiedText, setCopiedText] = useState('');
 
   const copyToClipboard = () => {
-    Clipboard.setString('hello world');
+    // Clipboard.setString('hello world');
+    ToastAndroid.show('Copied to clipboard', ToastAndroid.SHORT);
   };
 
 
@@ -31,15 +32,15 @@ const Confirmed = ({ navigation}) => {
           </View>
           <View style={{ paddingHorizontal:30,paddingVertical:8, marginBottom:10,backgroundColor:'#FBFFF8', borderRadius:20, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
             <Text style={{ fontFamily:'Hank_bold', color:'#01722E', marginRight:10, fontSize:20}}>BKOO67KG</Text>
-            <TouchableOpacity><FontAwesome5 name="copy" size={18} color="#01722E" /></TouchableOpacity>
+            <TouchableOpacity onPress={copyToClipboard}><FontAwesome5 name="copy" size={18} color="#01722E" /></TouchableOpacity>
           </View>
           <View>
             <Text style={{ color:'gray', fontFamily:'Hank_bold'}}>Contact</Text>
             <Text style={{ color:'gray', fontFamily:'Hank_bold'}}>07***152</Text>
           </View>
-          <TouchableOpacity style={{ marginVertical:20, padding:18, width:'50%', backgroundColor:'#EFFAE5', borderRadius:40, justifyContent:'center', alignItems:'center'}}>
+          <View style={{ marginVertical:20, padding:18, width:'50%', backgroundColor:'#EFFAE5', borderRadius:40, justifyContent:'center', alignItems:'center'}}>
             <Text style={{ color:'#01722E', fontFamily:'Hank_black', fontSize:20}}>Confirmed</Text>
-          </TouchableOpacity>
+          </View>
       </View>
     </SafeAreaView>
   )
