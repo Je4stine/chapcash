@@ -1,15 +1,12 @@
 import { View, Text, StyleSheet } from 'react-native';
 import React from 'react';
 import Message from './Message';
+import Test from './Test';
 
 const Pending = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text1}>Today</Text>
-      <Message/>
-      <Message/>
-      <Message/>
-      <Message/>
       <Message/>
       <Message/>
     </View>

@@ -10,10 +10,16 @@ const Message = () => {
     
     const itemRef = useRef(null);
 
-    // itemRef.current.close();
+    
+
+    handleTouch =()=>{
+        navigation.navigate('Confirm')
+        itemRef.current.close();
+    }
 
     const rightButton = (
         <SwipeButtonsContainer
+            
             style={{
                 alignSelf: 'center',
                 aspectRatio: 1,
@@ -21,7 +27,7 @@ const Message = () => {
                 padding: 10,
             }}>
             <TouchableOpacity
-                onPress={() => navigation.navigate('Confirm')} style={{ }}>
+                onPress={handleTouch} style={{ }}>
                 {/* <MaterialCommunityIcons name="text-box-check-outline" size={24} color="#136207" /> */}
                 <MaterialCommunityIcons name="text-box-remove-outline" size={24} color="#ff0000" />
             </TouchableOpacity>
@@ -29,12 +35,13 @@ const Message = () => {
     );
   return (
     <View>
-      <SwipeProvider>
+      <SwipeProvider >
             <SwipeItem
                 style={styles.button}
                 swipeContainerStyle={styles.swipeContentContainerStyle}
                 rightButtons={rightButton}
                 ref={itemRef}
+                
                 >
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
                     <View style={{ backgroundColor:'#ff0000', padding:8, borderRadius:28, marginRight:10}}><Text style={{ color:'#fff',fontFamily:'Hank_black', fontSize:16}}>KM</Text></View>
