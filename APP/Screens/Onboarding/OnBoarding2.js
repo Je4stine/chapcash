@@ -5,15 +5,41 @@ import { AntDesign } from '@expo/vector-icons';
 
 const OnBoarding2 = ({ navigation}) => {
   return (
-    <SafeAreaView style={{justifyContent:'center', alignItems:'center', flex:1, backgroundColor:"#EFFAE5"}}>
-      <Image source={require('../../Assets/Images/Pic2.png')} style={{ }}/>
-      <Text style={{ fontFamily:'Novera-black', color:'#01722E', fontSize:40, textAlign:'center'}}>SAY BYE BYE TO PAPERS</Text>
-      <TouchableOpacity onPress={()=>navigation.navigate('Onboarding3')} style={{ flexDirection:'row', marginTop:70,backgroundColor:'#01722E', height:50, width:'80%', alignSelf:'center', justifyContent:'center', alignItems:'center', borderRadius:30}}>
-        <Text style={{ color:'#fff', fontFamily:'Hank_black', fontSize:22, marginRight:20}}>
-            Get Started
-        </Text>
-        <AntDesign name="arrowright" size={22} color="#fff" />
-      </TouchableOpacity>
+    <SafeAreaView style={{flex:1, backgroundColor:"#fff"}}>
+      <View style={{ alignItems:'center'}}>
+          <Text style={{ fontWeight:'700', fontSize:25, marginTop:30}}>Welcome Onboard</Text>
+          <Text style={{ fontWeight:'400', fontSize:25}}>you are not alone</Text>
+          <Image source={require('../../Assets/Images/logo2.1.png')} style={{height:260, width:260 }}/>
+      </View>
+      <View style={{ height:0.5, backgroundColor:'#D9D9D9', width:'90%', alignSelf:'center', marginBottom:20}}></View>
+      <View style={{ paddingHorizontal:20}}>
+          <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={{ fontSize:14, fontWeight:'600', marginBottom:10}}>Club Bruno</Text>
+              <Text>Nairobi</Text>
+          </View>
+          <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={{ fontSize:14, fontWeight:'600', marginBottom:10}}>Black Pearl</Text>
+              <Text>Kisumu</Text>
+          </View>
+          <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={{ fontSize:14, fontWeight:'600', marginBottom:10}}>Signature</Text>
+              <Text>Kisumu</Text>
+          </View>
+          <View style={{ flexDirection:'row', justifyContent:'space-between'}}>
+              <Text style={{ fontSize:14, fontWeight:'600', marginBottom:10}}>Tribeka</Text>
+              <Text>Nairobi</Text>
+          </View>
+      </View>
+      <View style={{ height:0.5, backgroundColor:'#D9D9D9', width:'90%', alignSelf:'center', marginBottom:20}}></View>
+
+      <View style={{ flexDirection:'row', marginTop:30, justifyContent:'space-around',position:'absolute', bottom:20, alignSelf:'center' }}>
+          <TouchableOpacity style={{ height:40, backgroundColor:'#D9D9D9', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20, marginRight:40}}>
+            <Text style={{ color:"#5AB500", fontWeight:'700', fontSize:19}}>Skip</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={()=>{navigation.navigate('Onboarding3')}} style={{ height:40, backgroundColor:'#5AB500', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20}}>
+            <Text style={{ color:"#ffff", fontWeight:'700', fontSize:19}}>Next</Text>
+          </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }

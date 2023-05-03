@@ -35,7 +35,7 @@ const Message = () => {
     );
   return (
     <View>
-      <SwipeProvider >
+      <SwipeProvider closeTrigger='onButtonShowed' mode="Single">
             <SwipeItem
                 style={styles.button}
                 swipeContainerStyle={styles.swipeContentContainerStyle}

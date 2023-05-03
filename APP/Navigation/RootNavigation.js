@@ -18,6 +18,10 @@ import OnBoarding2 from '../Screens/Onboarding/OnBoarding2';
 import OnBoarding3 from '../Screens/Onboarding/OnBoarding3';
 
 import useGetOnboardingStatus from '../Utils/Onboard';
+import OnBoarding4 from '../Screens/Onboarding/OnBoarding4';
+import SignUp1 from '../Screens/SignUp/SignUp1';
+import SignUp2 from '../Screens/SignUp/SignUp2';
+import SignUp3 from '../Screens/SignUp/SignUp3';
 
 
 
@@ -93,6 +97,10 @@ function BottomTabs() {
           <Stack.Screen name='Onboarding1' component={OnBoarding1} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}} />
           <Stack.Screen name='Onboarding2' component={OnBoarding2} options={{headerShown:false,presentation: 'transparentModal' ,animationTypeForReplace:'push', animation:'slide_from_right'}}/>
           <Stack.Screen name='Onboarding3' component={OnBoarding3} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='Onboarding4' component={OnBoarding4} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='SignUp1' component={SignUp1} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='SignUp2' component={SignUp2} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='SignUp3' component={SignUp3} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
           <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
           <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
           <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
