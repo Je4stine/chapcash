@@ -3,10 +3,20 @@ import React, {useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 import Checkbox from 'expo-checkbox';
+import { Entypo, Ionicons  } from '@expo/vector-icons';
+
+
 
 
 const SignUp3 = ({ navigation }) => {
     const [isChecked, setChecked] = useState(false);
+    const [passwordShown, setPasswordShown]=useState(false);
+    const [ secure, setSecure]=useState(true)
+
+    const handleShowPassword =()=>{
+        setPasswordShown(!passwordShown);
+        setSecure(!secure);
+    };
 
   return (
     <SafeAreaView style={{ flex:1, backgroundColor:'#fff'}}>
@@ -25,22 +35,29 @@ const SignUp3 = ({ navigation }) => {
         placeholder='Email'
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10}}
        />
-       <TextInput/>
+       
+       <Entypo name="mail" size={18} color="black" style={{ position:'absolute', bottom:5, right:30}}/>
     </View>
     <View style={{paddingHorizontal:30, marginTop:10}}>
        <TextInput
         placeholder='Password'
-        secureTextEntry
+        secureTextEntry={secure}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10}}
        />
-       <TextInput/>
+       {
+        passwordShown?
+        <TouchableOpacity onPress={handleShowPassword} style={{ position:'absolute', bottom:5, right:30}}><Ionicons name="eye" size={18} color="black" /></TouchableOpacity>:
+        <TouchableOpacity onPress={handleShowPassword} style={{ position:'absolute', bottom:5, right:30}}><Entypo name="eye-with-line" size={18} color="black" /></TouchableOpacity>
+       }
+      
+      
     </View>
     <View style={{ flexDirection:'row', justifyContent:'center', marginTop:20, paddingHorizontal:20}}>
         <Checkbox
             style={{marginRight: 5,}}
             value={isChecked}
             onValueChange={setChecked}
-            color={isChecked ? '#5AB50' : undefined}
+            color={isChecked ? 'green' : undefined}
           />
         <Text>
             I agree to ChapCash Public agreement, Terms and Privacy conditions
@@ -58,7 +75,7 @@ const SignUp3 = ({ navigation }) => {
             <TouchableOpacity style={{ paddingHorizontal:20, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/facebook.png')} style={{height:30, width:30}}/></TouchableOpacity>
             <TouchableOpacity style={{ paddingHorizontal:20, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/baseline-apple.png')} style={{height:37, width:36}}/></TouchableOpacity>
         </View>
-        <TouchableOpacity style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginTop:40, alignSelf:'center'}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('Paybill')} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginTop:40, alignSelf:'center'}}>
                 <Text style={{ color:'#fff', fontSize:24, fontWeight:'700'}}>Continue</Text>
         </TouchableOpacity>
     </View>

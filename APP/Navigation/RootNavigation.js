@@ -22,6 +22,9 @@ import OnBoarding4 from '../Screens/Onboarding/OnBoarding4';
 import SignUp1 from '../Screens/SignUp/SignUp1';
 import SignUp2 from '../Screens/SignUp/SignUp2';
 import SignUp3 from '../Screens/SignUp/SignUp3';
+import Profile from '../Screens/SignUp/Profile';
+import PayBill from '../Screens/SignUp/PayBill';
+import OTP from '../Screens/SignUp/OTP';
 
 
 
@@ -101,6 +104,9 @@ function BottomTabs() {
           <Stack.Screen name='SignUp1' component={SignUp1} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
           <Stack.Screen name='SignUp2' component={SignUp2} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
           <Stack.Screen name='SignUp3' component={SignUp3} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='Profile1' component={Profile} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='Paybill' component={PayBill} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+          <Stack.Screen name='OTP' component={OTP} options={{headerShown:false, presentation: 'transparentModal',animationTypeForReplace:'push', animation:'slide_from_right'}}/>
           <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
           <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
           <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
