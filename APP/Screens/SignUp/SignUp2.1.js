@@ -5,14 +5,18 @@ import { TextInput } from 'react-native-gesture-handler';
 import SuccessModal from '../../Components/SuccessModal';
 
 
-const Profile = ({ navigation }) => {
-   
+const UserProfile = ({ navigation }) => {
+   const [visible, setVisible]=useState(false);
+
+   const handleSignUp =()=>{
+      setVisible(!visible)
+   };
     
 
   return (
-    <SafeAreaView style={{ flex:1, backgroundColor:'#fff', }}>
+    <SafeAreaView style={{ flex:1, backgroundColor:'#fff'}}>
    
-    <View style={{ alignItems:'center', paddingHorizontal:20}}>
+    <View style={{ paddingHorizontal:20}}>
         <View>
             <Text style={{ fontSize:27, fontFamily:'Montserrat-bold', color:"#000", marginTop:20, marginBottom:5}}>
                 Please Fill in
@@ -21,7 +25,7 @@ const Profile = ({ navigation }) => {
                 Till/Paybill details
             </Text>
             <View style={{}}>
-                <Text style={{ fontFamily:'Montserrat-regular'}}>A verification code will be sent to your mobile number after you click verify</Text>
+                <Text style={{fontFamily:'Montserrat-regular'}}>A verification code will be sent to your mobile number after you click verify</Text>
             </View>
             
         </View>
@@ -46,13 +50,13 @@ const Profile = ({ navigation }) => {
    
    <View style={{flex:1, justifyContent:'flex-end', marginBottom:30}}>
         
-        <TouchableOpacity onPress={()=>navigation.navigate('OTP')} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginTop:40, alignSelf:'center'}}>
-                <Text style={{ color:'#fff', fontSize:24, fontFamily:'Montserrat-bold'}}>Verify</Text>
+        <TouchableOpacity onPress={handleSignUp} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginTop:40, alignSelf:'center'}}>
+                <Text style={{ color:'#fff', fontSize:24, fontFamily:'Montserrat-bold'}}>Sign Up</Text>
         </TouchableOpacity>
     </View>
-  
+    <SuccessModal visible={visible}/>
     </SafeAreaView>
   )
 }
 
-export default Profile;
+export default UserProfile;

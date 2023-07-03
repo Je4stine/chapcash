@@ -10,10 +10,10 @@ const OnBoarding3 = ({ navigation }) => {
           <Image source={require('../../Assets/Images/image3.1.png')} style={{ width:320, height:410, marginTop:20}}/>
       </View>
       <View style={{ paddingHorizontal:90, marginTop:20}}>
-          <Text style={{ fontSize:25, fontWeight:'700', textAlign:'center'}}>
+          <Text style={{ fontSize:25,  fontFamily:'Montserrat-bold', textAlign:'center'}}>
               Save time 
           </Text>
-          <Text style={{ fontSize:25, fontWeight:'700', textAlign:'center'}}>Forget about the papers</Text>
+          <Text style={{ fontSize:25,  fontFamily:'Montserrat-bold', textAlign:'center'}}>Forget about the papers</Text>
       </View>
       <View style={{ flexDirection:'row', marginTop:50, alignSelf:'center'}}>
             <View style={{ width:5, height:5, backgroundColor:'#D9D9D9', borderRadius:2.5, marginRight:5}}></View>
@@ -24,10 +24,10 @@ const OnBoarding3 = ({ navigation }) => {
 
       <View style={{ flexDirection:'row', marginTop:30, justifyContent:'space-around',position:'absolute', bottom:20, alignSelf:'center' }}>
           <TouchableOpacity style={{ height:40, backgroundColor:'#D9D9D9', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20, marginRight:40}}>
-            <Text style={{ color:"#5AB500", fontWeight:'700', fontSize:19}}>Skip</Text>
+            <Text style={{ color:"#5AB500",  fontFamily:'Montserrat-bold', fontSize:19}}>Skip</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={()=>{navigation.navigate('Onboarding4')}} style={{ height:40, backgroundColor:'#5AB500', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20}}>
-            <Text style={{ color:"#ffff", fontWeight:'700', fontSize:19}}>Next</Text>
+            <Text style={{ color:"#ffff", fontFamily:'Montserrat-bold', fontSize:19}}>Next</Text>
           </TouchableOpacity>
       </View>
         

@@ -24,12 +24,15 @@ const Message = () => {
                 alignSelf: 'center',
                 aspectRatio: 1,
                 flexDirection: 'column',
-                padding: 10,
+                padding: 8,
+                backgroundColor:'red',
+                borderRadius:3,
+                marginLeft:10
             }}>
             <TouchableOpacity
                 onPress={handleTouch} style={{ }}>
                 {/* <MaterialCommunityIcons name="text-box-check-outline" size={24} color="#136207" /> */}
-                <MaterialCommunityIcons name="text-box-remove-outline" size={24} color="#ff0000" />
+                <MaterialCommunityIcons name="text-box-remove-outline" size={24} color="#fff" />
             </TouchableOpacity>
         </SwipeButtonsContainer>
     );
@@ -44,15 +47,15 @@ const Message = () => {
                 
                 >
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <View style={{ backgroundColor:'#ff0000', padding:8, borderRadius:28, marginRight:10}}><Text style={{ color:'#fff',fontFamily:'Hank_black', fontSize:16}}>KM</Text></View>
+                    <View style={{ backgroundColor:'#ff0000', width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>KM</Text></View>
                     <View>
-                        <Text style={{ fontFamily:'Hank_black', color:'#136207', fontSize:18}}>Kevin Morias</Text>
-                        <Text style={{ fontFamily:'Hank_bold', color:'gray', fontSize:15}}>07***18032</Text>
+                        <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>Kevin Morias</Text>
+                        <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>07***18032</Text>
                     </View>
                 </View>
                 <View>
-                    <Text style={{ fontFamily:'Hank_black' , color:'#136207', fontSize:18}}>+Ksh. 2,300</Text>
-                    <Text style={{alignSelf:"flex-end",fontFamily:'Hank_black', color:'gray', fontSize:15}}>8.28AM</Text>
+                    <Text style={{ fontFamily:'Montserrat-bold' , color:'#002C11', fontSize:18}}>+Ksh. 2,300</Text>
+                    <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>8.28AM</Text>
                 </View>
 
             </SwipeItem>
@@ -74,6 +77,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor:'#EFFAE5',
+        backgroundColor:'#fff',
     }
 });

@@ -14,13 +14,16 @@ const Home = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex:1, backgroundColor:'#fff'}}>
       <HomeHeader/>
-      <Stats/>
-      <View style={{ width:'90%', height:50, backgroundColor:'#D3D3D3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center'}}>
-        <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Pending</Text></TouchableOpacity>
-        <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Confirmed</Text></TouchableOpacity>
+      <View style={{ width:'95%', alignSelf:'center', backgroundColor:'#f4f4f4', padding:15, borderRadius:10}}>
+          <Stats/>
+          <View style={{ width:'90%', height:50, backgroundColor:'#D3D3D3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center'}}>
+            <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Pending</Text></TouchableOpacity>
+            <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Confirmed</Text></TouchableOpacity>
+          </View>
       </View>
+     
       { index===1?<Pending/>:null
       }
       {
@@ -34,7 +37,7 @@ export default Home;
 
 const styles = StyleSheet.create({
     active: {
-      backgroundColor:'#136207',
+      backgroundColor:'#5AB500',
       justifyContent:'center',
       alignItems:'center',
       height:50,
@@ -50,12 +53,12 @@ const styles = StyleSheet.create({
     },
     activeText:{
       color:'#fff',
-      fontFamily:'Hank_black',
+      fontFamily:'Montserrat-bold',
       fontSize:20
     },
     inactiveText:{
-      color:'#136207',
-      fontFamily:'Hank_black',
+      color:'#5AB500',
+      fontFamily:'Montserrat-bold',
       fontSize:20
     }
 })

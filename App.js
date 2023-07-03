@@ -15,7 +15,9 @@ export default function App() {
     'Hank_black': require('./APP/Assets/Fonts/HankRnd-Black.ttf'),
     'Novera-bold': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicbold.otf'),
     'Novera-black': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicblack.otf'),
-    'Novera': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicregular.otf')
+    'Novera': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicregular.otf'),
+    'Montserrat-regular': require('./APP/Assets/Fonts/Montserrat-Regular.ttf'),
+    'Montserrat-bold': require('./APP/Assets/Fonts/Montserrat-Bold.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {

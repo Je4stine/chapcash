@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
     container:{
         paddingHorizontal:10,
         marginTop:10,
-        backgroundColor:'#EFFAE5',
+      
         
     },
     text1:{
-        color:'#136207',
-        fontFamily:'Hank_black',
+        color:'#002C11',
+        fontFamily:'Montserrat-bold',
         fontSize:18,
         marginTop:20
     }

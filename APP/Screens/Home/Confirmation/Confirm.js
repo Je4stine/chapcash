@@ -22,24 +22,24 @@ const Confirm = ({ navigation}) => {
       <View style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#fff', width:'90%', paddingVertical:20, borderRadius:20}}>
             
             <View style={styles.regx}>
-                <Text style={{ color:'#ffff', fontSize:20, fontFamily:'Hank_bold'}}>KM</Text>
+                <Text style={{ color:'#ffff', fontSize:20,  fontFamily:'Montserrat-bold'}}>KM</Text>
             </View>
-          <Text style={{ fontFamily:'Hank_bold', fontSize:20, color:'#01722E', marginBottom:10}}>Kevin Moriasi</Text>
+          <Text style={{ fontFamily:'Montserrat-bold', fontSize:20, color:'#01722E', marginBottom:10}}>Kevin Moriasi</Text>
           <View style={{ flexDirection:'row', marginBottom:10}}>
             <Text style={{ marginTop:5, fontFamily:'Hank'}}>Ksh.</Text>
             <Text style={{ fontSize:30, fontFamily:'Novera-black',color:'#01722E'}}>3,500</Text>
             <Text style={{ marginTop:5, fontFamily:'Hank'}}>.00</Text>
           </View>
           <View style={{ paddingHorizontal:30,paddingVertical:8, marginBottom:10,backgroundColor:'#cefad0', borderRadius:20, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-            <Text style={{ fontFamily:'Hank_bold', color:'green', marginRight:10, fontSize:20}}>BKOO67KG</Text>
+            <Text style={{ fontFamily:'Montserrat-bold', color:'green', marginRight:10, fontSize:20}}>BKOO67KG</Text>
             <TouchableOpacity onPress={copyToClipboard}><FontAwesome5 name="copy" size={18} color="green" /></TouchableOpacity>
           </View>
           <View>
-            <Text style={{ color:'gray', fontFamily:'Hank_bold'}}>Contact</Text>
-            <Text style={{ color:'gray', fontFamily:'Hank_bold'}}>07***152</Text>
+            <Text style={{ color:'gray', fontFamily:'Montserrat-bold'}}>Contact</Text>
+            <Text style={{ color:'gray', fontFamily:'Montserrat-bold'}}>07***152</Text>
           </View>
           <TouchableOpacity style={{ marginVertical:20, padding:18, width:'50%', backgroundColor:'#01722E', borderRadius:40, justifyContent:'center', alignItems:'center'}}>
-            <Text style={{ color:'#fff', fontFamily:'Hank_black', fontSize:20}}>Confirm</Text>
+            <Text style={{ color:'#fff', fontFamily:'Montserrat-bold', fontSize:20}}>Confirm</Text>
           </TouchableOpacity>
       </View>
     </SafeAreaView>
