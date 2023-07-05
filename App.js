@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import MainStack from './APP/Navigation/RootNavigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
+import {AppProvider} from './APP/Context/AppContext';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -34,8 +35,10 @@ export default function App() {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <MainStack/>
-      <StatusBar style="auto" />
+      <AppProvider>
+        <MainStack/>
+        <StatusBar translucent={true} backgroundColor='#fff' style='dark-content'/>
+      </AppProvider>
     </View>
   );
 }

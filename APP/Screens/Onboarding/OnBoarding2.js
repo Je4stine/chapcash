@@ -33,10 +33,10 @@ const OnBoarding2 = ({ navigation}) => {
       <View style={{ height:0.5, backgroundColor:'#D9D9D9', width:'90%', alignSelf:'center', marginBottom:20}}></View>
 
       <View style={{ flexDirection:'row', marginTop:30, justifyContent:'space-around',position:'absolute', bottom:20, alignSelf:'center' }}>
-          <TouchableOpacity style={{ height:40, backgroundColor:'#D9D9D9', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20, marginRight:40}}>
+          <TouchableOpacity onPress={()=>navigation.navigate('SignUp1')} style={{ height:40, backgroundColor:'#D9D9D9', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20, marginRight:40}}>
             <Text style={{ color:"#5AB500",  fontFamily:'Montserrat-bold', fontSize:19}}>Skip</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={()=>{navigation.navigate('Onboarding3')}} style={{ height:40, backgroundColor:'#5AB500', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20}}>
+          <TouchableOpacity onPress={()=>navigation.navigate('Onboarding3')} style={{ height:40, backgroundColor:'#5AB500', paddingHorizontal:30, justifyContent:'center', alignItems:'center', borderRadius:20}}>
             <Text style={{ color:"#ffff",  fontFamily:'Montserrat-bold', fontSize:19}}>Next</Text>
           </TouchableOpacity>
       </View>

@@ -77,7 +77,7 @@ const Account = ({navigation}) => {
             </Text>
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'95%', marginTop:5}}></View>
 
-            <TouchableOpacity onPress={navigation.navigate('Settings')} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>
                         <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
                             <Feather name="settings" size={24} color="black" />

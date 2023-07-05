@@ -1,12 +1,15 @@
 import { View, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 import { FontAwesome5 } from '@expo/vector-icons';
 
 
-const PayBill = ({ navigation }) => {
+const PayBill = ({ navigation, route }) => {
    const [shopNumber, setShopNumber]=useState(0);
+   const [ fullname, setFullname]= useState('');
+   const [phonenumber, setPhoneNumber] = useState('');
+   const { password, email} = route.params;
 
     GenerateRandomNumber=()=>
     {
@@ -16,9 +19,15 @@ const PayBill = ({ navigation }) => {
     setShopNumber(RandomNumber)
     };
 
-    useState(()=>{
+    useEffect(()=>{
         GenerateRandomNumber()
     },[]);
+
+    const handleNext =()=>{
+      navigation.navigate('Profile1',{
+        password, email, shopNumber, fullname, phonenumber
+      })
+    }
 
     
 
@@ -40,6 +49,7 @@ const PayBill = ({ navigation }) => {
        <TextInput
        
         placeholder='Full Name'
+        onChangeText={(text)=>setFullname(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10,  fontFamily:'Montserrat-regular'}}
        />
        
@@ -48,6 +58,7 @@ const PayBill = ({ navigation }) => {
     <View style={{paddingHorizontal:30, marginTop:20}}>
        <TextInput
         placeholder='Phone Number'
+        onChangeText={(text)=>setPhoneNumber(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10,  fontFamily:'Montserrat-regular'}}
        />
      </View>
@@ -65,7 +76,7 @@ const PayBill = ({ navigation }) => {
    
    <View style={{flex:1, justifyContent:'flex-end', marginBottom:30}}>
         
-        <TouchableOpacity onPress={()=>navigation.navigate('Profile1')} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginTop:40, alignSelf:'center'}}>
+        <TouchableOpacity onPress={handleNext} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginTop:40, alignSelf:'center'}}>
                 <Text style={{ color:'#fff', fontSize:24,  fontFamily:'Montserrat-bold'}}>Continue</Text>
         </TouchableOpacity>
     </View>

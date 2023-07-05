@@ -20,7 +20,7 @@ const SignUp1 = ({ navigation }) => {
         <TouchableOpacity onPress={()=>navigation.navigate('SignIn')} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#5AB500', width:'80%', height:50, borderRadius:48, marginBottom:40}}>
             <Text style={{ color:'#fff', fontSize:24,  fontFamily:'Montserrat-bold'}}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={()=>{navigation.navigate('SignUp2')}} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#D9D9D9', width:'80%', height:50, borderRadius:48}}>
+        <TouchableOpacity onPress={()=>navigation.navigate('SignUp2')} style={{ justifyContent:'center', alignItems:'center', backgroundColor:'#D9D9D9', width:'80%', height:50, borderRadius:48}}>
             <Text style={{ color:'#5AB500', fontSize:24,  fontFamily:'Montserrat-bold'}}>Signup</Text>
         </TouchableOpacity>
     </View>

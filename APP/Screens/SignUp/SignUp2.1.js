@@ -1,17 +1,63 @@
-import { View, Text, Image, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import { View, Text, Image, TouchableOpacity, Alert} from 'react-native';
+import React, {useContext, useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 import SuccessModal from '../../Components/SuccessModal';
+import { AppContext } from '../../Context/AppContext';
 
 
-const UserProfile = ({ navigation }) => {
+const UserProfile = ({ navigation, route }) => {
    const [visible, setVisible]=useState(false);
+   const [ till, setTill] = useState('');
+   const [ orgname, setOrgname]= useState('');
+   const [ loading, setLoading]= useState(false);
+   const { user, setUser}= useContext(AppContext)
+   const { password, email, phone, shopCode, fullname } = route.params;
 
-   const handleSignUp =()=>{
-      setVisible(!visible)
-   };
+//    const handleSignUp =()=>{
+//       setVisible(!visible)
+//    };
     
+   const handleSignUp = async ()=>{
+    setLoading(true);
+   
+      await fetch ('https://www.chapcash.mopawa.co.ke/api/signup',{
+        method: 'POST',
+        headers:{
+          'Accept':'application/json',
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({
+          password,
+          email,
+          phonenumber: phone,
+          shopcode: shopCode,
+          name: fullname,
+          till,
+          organization: orgname,
+          role: 'user'
+        })
+      })
+      .then((response)=>response.json())
+      .then((response)=>{
+          if(response.error){
+            setTimeout(()=>{
+              Alert.alert(response.error)
+            }, 100);
+            setLoading(false);
+          } else {
+            setLoading(false)
+            setUser(response)
+            navigation.navigate('Main')
+          }
+        
+
+      }).catch(error=> setTimeout(()=>{
+        Alert.alert('An error occurred please check you internet connection the try again')
+        setLoading(false)
+      },100))
+   
+  };
 
   return (
     <SafeAreaView style={{ flex:1, backgroundColor:'#fff'}}>
@@ -32,8 +78,8 @@ const UserProfile = ({ navigation }) => {
     </View>
     <View style={{paddingHorizontal:30, marginTop:40}}>
        <TextInput
-       
         placeholder='Till/Paybill No.'
+        onChangeText={(text)=>setTill(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
        
@@ -42,6 +88,7 @@ const UserProfile = ({ navigation }) => {
     <View style={{paddingHorizontal:30, marginTop:20}}>
        <TextInput
         placeholder='Organization Name'
+        onChangeText={(text)=>setOrgname(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
      </View>
@@ -54,7 +101,12 @@ const UserProfile = ({ navigation }) => {
                 <Text style={{ color:'#fff', fontSize:24, fontFamily:'Montserrat-bold'}}>Sign Up</Text>
         </TouchableOpacity>
     </View>
-    <SuccessModal visible={visible}/>
+    {/* <SuccessModal visible={visible}/> */}
+    {
+      loading?<View style={{ backgroundColor:'rgba(0, 0, 0, 0.2)', alignSelf:'center', alignItems:'center', justifyContent:'center',position:'absolute', top:0, left:0, right:0, bottom:0}}>
+      <Image source={require('../../Assets/Images/loader.gif')} style={{ height:70, width:70}}/>
+    </View>:<View/>
+    }
     </SafeAreaView>
   )
 }

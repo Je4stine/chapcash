@@ -5,13 +5,13 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
-const Message = () => {
+const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime}) => {
     const navigation = useNavigation();
-    
     const itemRef = useRef(null);
+    const regexPattern = /\b(\w)/g;
+    const abrreviate = FirstName.match(regexPattern);
 
-    
-
+   
     handleTouch =()=>{
         navigation.navigate('Confirm')
         itemRef.current.close();
@@ -47,15 +47,15 @@ const Message = () => {
                 
                 >
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <View style={{ backgroundColor:'#ff0000', width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>KM</Text></View>
+                    <View style={{ backgroundColor:'#ff0000', width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>
                     <View>
-                        <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>Kevin Morias</Text>
-                        <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>07***18032</Text>
+                        <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>{FirstName}</Text>
+                        <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{MSISDN}</Text>
                     </View>
                 </View>
                 <View>
-                    <Text style={{ fontFamily:'Montserrat-bold' , color:'#002C11', fontSize:18}}>+Ksh. 2,300</Text>
-                    <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>8.28AM</Text>
+                    <Text style={{ fontFamily:'Montserrat-bold' , color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
+                    <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{TransTime}</Text>
                 </View>
 
             </SwipeItem>

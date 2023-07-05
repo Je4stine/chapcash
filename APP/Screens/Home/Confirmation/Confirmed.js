@@ -8,9 +8,14 @@ import { Feather } from '@expo/vector-icons';
 const Confirmed = ({ navigation}) => {
   const [copiedText, setCopiedText] = useState('');
 
-  const copyToClipboard = () => {
-    // Clipboard.setString('hello world');
+  const copyToClipboard = async () => {
+    await Clipboard.setStringAsync('hello world');
     ToastAndroid.show('Copied to clipboard', ToastAndroid.SHORT);
+  };
+
+  const fetchCopiedText = async () => {
+    const text = await Clipboard.getStringAsync();
+    setCopiedText(text);
   };
 
 
@@ -24,22 +29,22 @@ const Confirmed = ({ navigation}) => {
             <View style={styles.regx}>
                 <Text style={{ color:'#ffff', fontSize:20, fontFamily:'Montserrat-bold'}}>KM</Text>
             </View>
-          <Text style={{ fontFamily:'Montserrat-bold', fontSize:20, color:'#01722E', marginBottom:10}}>Kevin Moriasi</Text>
+          <Text style={{ fontFamily:'Montserrat-bold', fontSize:20, color:'#5AB500', marginBottom:10}}>Kevin Moriasi</Text>
           <View style={{ flexDirection:'row', marginBottom:10}}>
             <Text style={{ marginTop:5, fontFamily:'Hank'}}>Ksh.</Text>
-            <Text style={{ fontSize:30, fontFamily:'Novera-black', color:'#01722E'}}>3,500</Text>
+            <Text style={{ fontSize:30, fontFamily:'Novera-black', color:'#5AB500'}}>3,500</Text>
             <Text style={{ marginTop:5, fontFamily:'Hank'}}>.00</Text>
           </View>
           <View style={{ paddingHorizontal:30,paddingVertical:8, marginBottom:10,backgroundColor:'#FBFFF8', borderRadius:20, flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-            <Text style={{ fontFamily:'Montserrat-bold', color:'#01722E', marginRight:10, fontSize:20}}>BKOO67KG</Text>
-            <TouchableOpacity onPress={copyToClipboard}><FontAwesome5 name="copy" size={18} color="#01722E" /></TouchableOpacity>
+            <Text style={{ fontFamily:'Montserrat-bold', color:'#5AB500', marginRight:10, fontSize:20}}>BKOO67KG</Text>
+            <TouchableOpacity onPress={copyToClipboard}><FontAwesome5 name="copy" size={18} color="#5AB500" /></TouchableOpacity>
           </View>
           <View>
             <Text style={{ color:'gray', fontFamily:'Montserrat-bold'}}>Contact</Text>
             <Text style={{ color:'gray', fontFamily:'Montserrat-bold'}}>07***152</Text>
           </View>
           <View style={{ marginVertical:20, padding:18, width:'50%', backgroundColor:'#EFFAE5', borderRadius:40, justifyContent:'center', alignItems:'center'}}>
-            <Text style={{ color:'#01722E', fontFamily:'Montserrat-bold', fontSize:20}}>Confirmed</Text>
+            <Text style={{ color:'#5AB500', fontFamily:'Montserrat-bold', fontSize:20}}>Confirmed</Text>
           </View>
       </View>
     </SafeAreaView>
@@ -59,7 +64,7 @@ const styles = StyleSheet.create({
         height:60,
         width:60,
         borderRadius:30,
-        backgroundColor:'#01722E',
+        backgroundColor:'#5AB500',
         justifyContent:'center',
         alignItems:'center',
         marginBottom:20

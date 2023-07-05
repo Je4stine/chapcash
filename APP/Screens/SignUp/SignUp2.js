@@ -18,11 +18,12 @@ const SignUp2 = ({navigation}) => {
                 <Text style={{ color:'#fff', fontSize:24,  fontFamily:'Montserrat-bold', marginRight:10}}>Staff</Text>
                 <AntDesign name="arrowright" size={24} color="#fff" />
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{navigation.navigate('SignUp3')}} style={{ flexDirection:'row',justifyContent:'center', alignItems:'center', backgroundColor:'#D9D9D9', width:'80%', height:50, borderRadius:48}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('SignUp3')} style={{ flexDirection:'row',justifyContent:'center', alignItems:'center', backgroundColor:'#D9D9D9', width:'80%', height:50, borderRadius:48}}>
                 <Text style={{ color:'#5AB500', fontSize:24,  fontFamily:'Montserrat-bold', marginRight:10}}>Manager</Text>
                 <AntDesign name="arrowright" size={24} color="#5AB500" />
             </TouchableOpacity>
         </View>
+        
        
     </SafeAreaView>
   )

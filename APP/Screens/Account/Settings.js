@@ -10,14 +10,7 @@ import AddImage from './AddImage';
 
 
 const Settings = ({navigation}) => {
-  const [ visible, setVisible]= useState(false);
-
-  const toggleBottomNavigationView = () => {
-    setVisible(!visible);
-  
-  };
-
-
+ 
 
 
   return (
@@ -98,8 +91,6 @@ const Settings = ({navigation}) => {
 
         
             <Text style={{ color:'gray', marginTop:20, fontFamily:'Montserrat-regular'}}>ChapCash V1.00</Text>
-   
-      <AddImage visible={visible} toggleBottomNavigationView={toggleBottomNavigationView}/>
     </SafeAreaView>
   )
 };
