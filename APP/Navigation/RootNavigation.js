@@ -103,19 +103,19 @@ function BottomTabs() {
 
   function MainStack(){
     // const { isFirstLaunch, isLoading: onboardingIsLoading } = useGetOnboardingStatus();
-    const [showOnboarding, setShowOnboarding] = useState(false);
+    const [showOnboarding, setShowOnboarding] = useState(true);
 
     const checkOnboardingStatus = async () => {
       try {
         const value = await AsyncStorage.getItem('onboardingCompleted');
-        if (value === null) {
-          setShowOnboarding(true);
+        if (value == "true") {
+          setShowOnboarding(false);
         }
-        console.log(value)
+        console.log(`Value is ${value}`)
+        console.log(showOnboarding)
         return value !== null; // Returns true if onboarding is completed, false otherwise
       } catch (error) {
         console.log('Error retrieving onboarding status:', error);
-        console.log(showOnboarding)
         return false;
       }
     };
@@ -125,64 +125,58 @@ function BottomTabs() {
     },[]);
 
 
-    // useEffect(() => {
-    //   checkOnboardingStatus().then((onboardingCompleted) => {
-    //     setShowOnboarding(!onboardingCompleted);
-    //   });
-    // }, []);
-
-    if (showOnboarding) {
-      return (
-        <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Onboarding1" component={OnBoarding1} options={{ headerShown: false, animationTypeForReplace: 'push', animation: 'slide_from_right' }} />
-          <Stack.Screen name="Onboarding2" component={OnBoarding2} options={{ headerShown: false, animationTypeForReplace: 'push', animation: 'slide_from_right' }} />
-          <Stack.Screen name="Onboarding3" component={OnBoarding3} options={{ headerShown: false, animationTypeForReplace: 'push', animation: 'slide_from_right' }} />
-          <Stack.Screen name="Onboarding4" component={OnBoarding4} options={{ headerShown: false, animationTypeForReplace: 'push', animation: 'slide_from_right' }} />
-          <Stack.Screen name='SignUp1' component={SignUp1} options={{headerShown:false}}/>
-          <Stack.Screen name='SignUp2' component={SignUp2} options={{headerShown:false}}/>
-          <Stack.Screen name='SignUp3' component={SignUp3} options={{headerShown:false}}/>
-          <Stack.Screen name='Profile1' component={Profile} options={{headerShown:false}}/>
-          <Stack.Screen name='Paybill' component={PayBill} options={{headerShown:false}}/>
-          <Stack.Screen name='User1' component={UserSignUp} options={{headerShown:false}}/>
-          <Stack.Screen name='User2' component={UserProfile} options={{headerShown:false}}/>
-          <Stack.Screen name='User3' component={UserPayBill} options={{headerShown:false}}/>
-          <Stack.Screen name='SignIn' component={SignIn} options={{headerShown:false}}/>
-          <Stack.Screen name='OTP' component={OTP} options={{headerShown:false}}/>
-          <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
-          <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
-          <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
-          <Stack.Screen name='Account' component={Account} options={{headerShown:false}}/>
-          <Stack.Screen name='Settings' component={Settings} options={{headerShown:false}}/>
-        </Stack.Navigator>
-        </NavigationContainer>
-      );
-    }
   
    
 
     return(
       <NavigationContainer>
         <Stack.Navigator>
-          {/* <Stack.Screen name='Onboarding1' component={OnBoarding1} options={{headerShown:false,animationTypeForReplace:'push', animation:'slide_from_right'}} />
-          <Stack.Screen name='Onboarding2' component={OnBoarding2} options={{headerShown:false ,animationTypeForReplace:'push', animation:'slide_from_right'}}/>
-          <Stack.Screen name='Onboarding3' component={OnBoarding3} options={{headerShown:false,animationTypeForReplace:'push', animation:'slide_from_right'}}/>
-          <Stack.Screen name='Onboarding4' component={OnBoarding4} options={{headerShown:false, animationTypeForReplace:'push', animation:'slide_from_right'}}/> */}
-          <Stack.Screen name='SignUp1' component={SignUp1} options={{headerShown:false}}/>
-          <Stack.Screen name='SignUp2' component={SignUp2} options={{headerShown:false}}/>
-          <Stack.Screen name='SignUp3' component={SignUp3} options={{headerShown:false}}/>
-          <Stack.Screen name='Profile1' component={Profile} options={{headerShown:false}}/>
-          <Stack.Screen name='Paybill' component={PayBill} options={{headerShown:false}}/>
-          <Stack.Screen name='User1' component={UserSignUp} options={{headerShown:false}}/>
-          <Stack.Screen name='User2' component={UserProfile} options={{headerShown:false}}/>
-          <Stack.Screen name='User3' component={UserPayBill} options={{headerShown:false}}/>
-          <Stack.Screen name='SignIn' component={SignIn} options={{headerShown:false}}/>
-          <Stack.Screen name='OTP' component={OTP} options={{headerShown:false}}/>
-          <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
-          <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
-          <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
-          <Stack.Screen name='Account' component={Account} options={{headerShown:false}}/>
-          <Stack.Screen name='Settings' component={Settings} options={{headerShown:false}}/>
+          {
+            showOnboarding? (
+              <>
+              <Stack.Screen name='Onboarding1' component={OnBoarding1} options={{headerShown:false,animationTypeForReplace:'push', animation:'slide_from_right'}} />
+              <Stack.Screen name='Onboarding2' component={OnBoarding2} options={{headerShown:false ,animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+              <Stack.Screen name='Onboarding3' component={OnBoarding3} options={{headerShown:false,animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+              <Stack.Screen name='Onboarding4' component={OnBoarding4} options={{headerShown:false, animationTypeForReplace:'push', animation:'slide_from_right'}}/>
+              <Stack.Screen name='SignUp1' component={SignUp1} options={{headerShown:false}}/>
+              <Stack.Screen name='SignUp2' component={SignUp2} options={{headerShown:false}}/>
+              <Stack.Screen name='SignUp3' component={SignUp3} options={{headerShown:false}}/>
+              <Stack.Screen name='Profile1' component={Profile} options={{headerShown:false}}/>
+              <Stack.Screen name='Paybill' component={PayBill} options={{headerShown:false}}/>
+              <Stack.Screen name='User1' component={UserSignUp} options={{headerShown:false}}/>
+              <Stack.Screen name='User2' component={UserProfile} options={{headerShown:false}}/>
+              <Stack.Screen name='User3' component={UserPayBill} options={{headerShown:false}}/>
+              <Stack.Screen name='SignIn' component={SignIn} options={{headerShown:false}}/>
+              <Stack.Screen name='OTP' component={OTP} options={{headerShown:false}}/>
+              <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
+              <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
+              <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
+              <Stack.Screen name='Account' component={Account} options={{headerShown:false}}/>
+              <Stack.Screen name='Settings' component={Settings} options={{headerShown:false}}/>
+              </>
+            ):(
+              <>
+              <Stack.Screen name='SignUp1' component={SignUp1} options={{headerShown:false}}/>
+              <Stack.Screen name='SignUp2' component={SignUp2} options={{headerShown:false}}/>
+              <Stack.Screen name='SignUp3' component={SignUp3} options={{headerShown:false}}/>
+              <Stack.Screen name='Profile1' component={Profile} options={{headerShown:false}}/>
+              <Stack.Screen name='Paybill' component={PayBill} options={{headerShown:false}}/>
+              <Stack.Screen name='User1' component={UserSignUp} options={{headerShown:false}}/>
+              <Stack.Screen name='User2' component={UserProfile} options={{headerShown:false}}/>
+              <Stack.Screen name='User3' component={UserPayBill} options={{headerShown:false}}/>
+              <Stack.Screen name='SignIn' component={SignIn} options={{headerShown:false}}/>
+              <Stack.Screen name='OTP' component={OTP} options={{headerShown:false}}/>
+              <Stack.Screen name='Main' component={BottomTabs} options={{headerShown:false}}/>
+              <Stack.Screen name='Confirm' component={Confirm} options={{headerShown:false}}/>
+              <Stack.Screen name='Confirmed' component={Confirmed} options={{headerShown:false}}/>
+              <Stack.Screen name='Account' component={Account} options={{headerShown:false}}/>
+              <Stack.Screen name='Settings' component={Settings} options={{headerShown:false}}/>
+              </>
+
+            )
+          }
+          
+          
         </Stack.Navigator>
       </NavigationContainer>
     )

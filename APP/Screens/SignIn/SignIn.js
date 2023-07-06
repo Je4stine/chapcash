@@ -115,7 +115,8 @@ const SignIn = ({ navigation }) => {
               setLoading(false);
             }
           }).catch(error=> setTimeout(()=>{
-            setErrorMsg('An error occurred please check you internet connection the try again')
+            setIsError(true);
+            setErrorMsg(error)
             setLoading(false)
           },100))
 
@@ -129,7 +130,7 @@ const SignIn = ({ navigation }) => {
 
 
   return (
-    <SafeAreaView style={{ flex:1, backgroundColor:'#fff', position:'relative'}}>
+    <SafeAreaView style={{ flex:1, backgroundColor:'#fff'}}>
    
     <View style={{ alignItems:'center'}}>
         <View>
@@ -180,9 +181,9 @@ const SignIn = ({ navigation }) => {
         <TouchableOpacity onPress={()=>navigation.navigate('SignUp2')} ><Text style={{  fontFamily:'Montserrat-regular'}}>Don't have an account yet? SignUp</Text></TouchableOpacity>
     </View>
    
+    {/* position:'absolute', bottom:'10%', */}
    
-   
-   <View style={{flex:1, justifyContent:'center', position:'absolute', bottom:'10%', alignSelf:'center'}}>
+   <View style={{flex:1, justifyContent:'center',  alignSelf:'center'}}>
         <View style={{ alignItems:'center', marginTop:30, flexDirection:'row', justifyContent:'center'}}>
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'25%'}}></View>
             <Text style={{ marginHorizontal:10, fontSize:19, color:'#8E8A8A',  fontFamily:'Montserrat-regular'}}>Or continue with</Text>

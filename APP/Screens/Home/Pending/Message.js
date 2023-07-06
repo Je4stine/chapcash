@@ -1,21 +1,22 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid } from 'react-native';
 import React, {useRef} from 'react';
 import { SwipeItem, SwipeButtonsContainer, SwipeProvider } from 'react-native-swipe-item';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
-const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime}) => {
+const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime, itemRef, handleTouch}) => {
     const navigation = useNavigation();
-    const itemRef = useRef(null);
+    // const itemRef = useRef(null);
     const regexPattern = /\b(\w)/g;
     const abrreviate = FirstName.match(regexPattern);
 
+
    
-    handleTouch =()=>{
-        navigation.navigate('Confirm')
-        itemRef.current.close();
-    }
+    // handleTouch =()=>{
+    //     navigation.navigate('Confirm')
+    //     itemRef.current.close();
+    // }
 
     const rightButton = (
         <SwipeButtonsContainer
@@ -38,7 +39,7 @@ const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime}) => {
     );
   return (
     <View>
-      <SwipeProvider closeTrigger='onButtonShowed' mode="Single">
+      <SwipeProvider closeTrigger='onItemMoved' mode="Single">
             <SwipeItem
                 style={styles.button}
                 swipeContainerStyle={styles.swipeContentContainerStyle}
@@ -69,7 +70,7 @@ export default Message;
 const styles = StyleSheet.create({
     button: {
         width: '100%',
-        height: 70,
+        height: 60,
         alignSelf: 'center',
         marginVertical: 5,
     },

@@ -1,5 +1,6 @@
 import { View, Text } from 'react-native';
 import React from 'react';
+import { BlurView } from 'expo-blur';
 
 const Stats = () => {
   return (

@@ -1,10 +1,21 @@
-import { View, Text, StyleSheet, FlatList, RefreshControl } from 'react-native';
-import React,{useState, useEffect, useCallback} from 'react';
+import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid } from 'react-native';
+import React,{useState, useEffect, useCallback, useRef} from 'react';
 import Message from './Message';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 const Complete = () => {
 const [ completeMsg, SetCompleteMsg]= useState([]);
 const [refreshing, setRefreshing]=useState(false);
+
+const itemRef = useRef(null);
+const navigation = useNavigation();
+
+const handleTouch = (item) => {
+  navigation.navigate('Confirmed',{ FirstName:item.FirstName, Amount:item.TransAmount, MSISDN:item.MSISDN, ID: item.TransID});
+  itemRef.current.close();
+};
   
 const getUserSms = async ()=>{
   await fetch ('https://www.chapcash.mopawa.co.ke/api/complete',{
@@ -24,6 +35,10 @@ const getUserSms = async ()=>{
       });
 };
 
+useEffect(()=>{
+  getUserSms()
+},[]);
+
 
 const onRefresh = useCallback(() => {
   setRefreshing(true);
@@ -37,7 +52,7 @@ const onRefresh = useCallback(() => {
 
 const ItemView =  ({ item }) => {
   return (
-    <Message TransTime={item.TransTime} TransAmount={item.TransAmount} MSISDN={item.MSISDN} FirstName={item.FirstName} key={item.id} />
+    <Message TransTime={item.TransTime} TransAmount={item.TransAmount} MSISDN={item.MSISDN} FirstName={item.FirstName} key={item.id} handleTouch={()=>handleTouch(item)} itemRef={itemRef}/>
   );
 };
 

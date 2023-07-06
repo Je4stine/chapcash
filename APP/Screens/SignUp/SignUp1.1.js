@@ -93,7 +93,7 @@ const UserSignUp = ({ navigation }) => {
                 <Text style={{ color:'#fff', fontSize:24, fontFamily:'Montserrat-bold'}}>Continue</Text>
     </TouchableOpacity>
    
-   <View style={{flex:1, justifyContent:'center', position:'absolute', bottom:'10%', alignSelf:'center'}}>
+   <View style={{flex:1, justifyContent:'center',alignSelf:'center'}}>
         <View style={{ alignItems:'center', marginTop:40, flexDirection:'row', justifyContent:'center'}}>
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'25%'}}></View>
             <Text style={{ marginHorizontal:10, fontSize:19, color:'#8E8A8A', fontFamily:'Montserrat-regular'}}>Or continue with</Text>

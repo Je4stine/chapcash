@@ -50,10 +50,9 @@ const UserProfile = ({ navigation, route }) => {
             setUser(response)
             navigation.navigate('Main')
           }
-        
-
+      
       }).catch(error=> setTimeout(()=>{
-        Alert.alert('An error occurred please check you internet connection the try again')
+        Alert.alert(error)
         setLoading(false)
       },100))
    

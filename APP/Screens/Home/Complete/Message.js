@@ -1,20 +1,20 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import React, { useRef} from 'react';
 import { SwipeItem, SwipeButtonsContainer, SwipeProvider } from 'react-native-swipe-item';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
-const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime}) => {
+const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, handleTouch}) => {
     const navigation = useNavigation();
-    const itemRef = useRef(null);
+    // const itemRef = useRef(null);
     const regexPattern = /\b(\w)/g;
     const abrreviate = FirstName.match(regexPattern);
 
-    handleTouch =()=>{
-        navigation.navigate('Confirmed')
-        itemRef.current.close();
-    }
+    // handleTouch =()=>{
+    //     navigation.navigate('Confirmed')
+    //     itemRef.current.close();
+    // }
 
     const rightButton = (
         <SwipeButtonsContainer

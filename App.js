@@ -5,6 +5,7 @@ import MainStack from './APP/Navigation/RootNavigation';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import {AppProvider} from './APP/Context/AppContext';
+import './ignorewarnings';
 
 
 SplashScreen.preventAutoHideAsync();
