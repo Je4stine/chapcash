@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, } from 'react-native';
 import React, { useRef} from 'react';
-import { SwipeItem, SwipeButtonsContainer, SwipeProvider } from 'react-native-swipe-item';
+import { SwipeItem, SwipeButtonsContainer, SwipeProvider, OpenDirection } from 'react-native-swipe-item';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -33,13 +33,21 @@ const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, 
         </SwipeButtonsContainer>
     );
   return (
-    <View>
+    <View style={{ }}>
       <SwipeProvider>
             <SwipeItem
                 style={styles.button}
                 swipeContainerStyle={styles.swipeContentContainerStyle}
                 rightButtons={rightButton}
                 ref={itemRef}
+                onChange={({ openDirection }) => {
+                    if (openDirection !== OpenDirection.NONE) {
+                      // Close all other open items
+                      [...itemRef.current.entries()].forEach(([key, ref]) => {
+                        if (key !== item.key && ref) ref.close();
+                      });
+                    }
+                  }}
                 >
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
                     <View style={{ backgroundColor:'#5AB500',width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>

@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, Alert} from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, Keyboard} from 'react-native';
 import React, {useContext, useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
@@ -15,6 +15,7 @@ const Profile = ({ navigation, route }) => {
 
    const handleSignUp = async ()=>{
     setLoading(true);
+    Keyboard.dismiss();
    
       await fetch ('https://www.chapcash.mopawa.co.ke/api/signup',{
         method: 'POST',

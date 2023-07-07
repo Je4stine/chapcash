@@ -2,6 +2,10 @@ import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid } from '
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Message from './Message';
 import { useNavigation } from '@react-navigation/native';
+import DraggableFlatList, {
+  RenderItemParams,
+  ScaleDecorator,
+} from 'react-native-draggable-flatlist';
 
 const Pending = () => {
   const [pendingMsg, setPendingMsg] = useState([]);
@@ -66,10 +70,12 @@ const Pending = () => {
           <Text>No data yet</Text>
         </View>
       ) : (
-        <FlatList
+        <View style={{ flex:1}}>
+        <DraggableFlatList
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => item.id}
           data={pendingMsg}
+          activationDistance={20}
           renderItem={ItemView}
           refreshControl={
             <RefreshControl
@@ -78,6 +84,7 @@ const Pending = () => {
             />
           }
         />
+        </View>
       )}
     </View>
   );
@@ -87,8 +94,10 @@ export default Pending;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10,
-    marginTop: 10,
+    paddingHorizontal:10,
+    marginTop:10,
+    backgroundColor:'#fff',
+    flex:1
   },
   text1: {
     color: '#002C11',

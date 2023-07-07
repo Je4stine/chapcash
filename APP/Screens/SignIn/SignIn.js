@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, Alert, Animated,  KeyboardAvoidingView} from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, Animated,  Keyboard} from 'react-native';
 import React, {useState, useEffect, useRef, useContext} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
@@ -74,6 +74,7 @@ const SignIn = ({ navigation }) => {
         setLoading(true);
         setIsError(false);
         setErrorMsg('');
+        Keyboard.dismiss();
 
         if(password && email == ''){
           setLoading(false);
@@ -116,7 +117,7 @@ const SignIn = ({ navigation }) => {
             }
           }).catch(error=> setTimeout(()=>{
             setIsError(true);
-            setErrorMsg(error)
+            setErrorMsg("Network error occurred, please check your internet connection before you continue")
             setLoading(false)
           },100))
 

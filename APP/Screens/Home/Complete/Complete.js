@@ -2,12 +2,17 @@ import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid } from '
 import React,{useState, useEffect, useCallback, useRef} from 'react';
 import Message from './Message';
 import { useNavigation } from '@react-navigation/native';
+import DraggableFlatList, {
+  RenderItemParams,
+  ScaleDecorator,
+} from 'react-native-draggable-flatlist';
 
 
 
 const Complete = () => {
 const [ completeMsg, SetCompleteMsg]= useState([]);
 const [refreshing, setRefreshing]=useState(false);
+const [ isSearching, setSeaching]= useState(false)
 
 const itemRef = useRef(null);
 const navigation = useNavigation();
@@ -35,9 +40,36 @@ const getUserSms = async ()=>{
       });
 };
 
-useEffect(()=>{
-  getUserSms()
-},[]);
+// useEffect(()=>{
+//   getUserSms()
+// },[]);
+
+
+// useEffect(() => {
+
+//   getUserSms()
+
+//   if (!isSearching) {
+//     const interval = setInterval(() => {
+//       getUserSms()
+//     }, 10000);
+//     return ()=>clearInterval(interval)
+//     }
+// },[isSearching]);
+
+useEffect(() => {
+  if (!isSearching) {
+    getUserSms();
+    
+    const interval = setInterval(() => {
+      getUserSms();
+    }, 10000);
+    return () => clearInterval(interval);
+  }
+}, [isSearching]);
+
+
+
 
 
 const onRefresh = useCallback(() => {
@@ -62,18 +94,24 @@ const ItemView =  ({ item }) => {
       <Text style={styles.text1}>Today</Text>
       {
         completeMsg == "" ?<View style={{ justifyContent:'center', alignSelf:'center', marginTop:'50%'}}><Text>No data yet</Text></View>:
-        <FlatList
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item, index) => item.id}
-        data={completeMsg}
-        renderItem={ItemView}
-        refreshControl={
-          <RefreshControl
-            //refresh control used for the Pull to Refresh
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />}
-          />
+        <View style={{ flex:1 }}>
+        
+
+          <DraggableFlatList
+                keyExtractor={(item) => item.id}
+                data={completeMsg}
+                renderItem={ItemView}
+                activationDistance={20}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                  <RefreshControl
+                    //refresh control used for the Pull to Refresh
+                    refreshing={refreshing}
+                    onRefresh={onRefresh}
+                  />}
+                
+              />
+          </View>
       }
      
     </View>
@@ -87,6 +125,9 @@ const styles = StyleSheet.create({
         paddingHorizontal:10,
         marginTop:10,
         backgroundColor:'#fff',
+        flex:1
+        
+        
         
     },
     text1:{
@@ -94,5 +135,8 @@ const styles = StyleSheet.create({
         fontFamily:'Montserrat-bold',
         fontSize:18,
         marginTop:20
+    },
+    contentContainer:{
+      flex:1
     }
 })

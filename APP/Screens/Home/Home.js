@@ -52,7 +52,7 @@ const Home = () => {
 
   return (
     <SafeAreaView style={{ flex:1, backgroundColor:'#fff', position:'relative'}}>
-     <View onPress={handleClickOutside}>
+    
       {
         visible ?(
           <View>
@@ -75,13 +75,13 @@ const Home = () => {
           </Animated.View>
       </View>
      
+         
       { index===1?<Pending/>:null
       }
       {
          index===2?<Complete/>:null
       }
-         
-     </View>
+   
      {visible && (
         <TouchableOpacity
           style={{ position: 'absolute', top: 120, bottom: 0, left: 0, right: 0}}
