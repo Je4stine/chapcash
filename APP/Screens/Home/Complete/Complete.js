@@ -6,13 +6,15 @@ import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
 } from 'react-native-draggable-flatlist';
+import ShiView from '../../../Components/ShiView';
 
 
 
 const Complete = () => {
 const [ completeMsg, SetCompleteMsg]= useState([]);
 const [refreshing, setRefreshing]=useState(false);
-const [ isSearching, setSeaching]= useState(false)
+const [ isSearching, setSeaching]= useState(false);
+const [ apploading, setIsLoading] = useState(false);
 
 const itemRef = useRef(null);
 const navigation = useNavigation();
@@ -40,22 +42,7 @@ const getUserSms = async ()=>{
       });
 };
 
-// useEffect(()=>{
-//   getUserSms()
-// },[]);
 
-
-// useEffect(() => {
-
-//   getUserSms()
-
-//   if (!isSearching) {
-//     const interval = setInterval(() => {
-//       getUserSms()
-//     }, 10000);
-//     return ()=>clearInterval(interval)
-//     }
-// },[isSearching]);
 
 useEffect(() => {
   if (!isSearching) {
@@ -67,6 +54,19 @@ useEffect(() => {
     return () => clearInterval(interval);
   }
 }, [isSearching]);
+
+
+useEffect(() => {
+  if (completeMsg == ''){
+    setIsLoading(true)
+  }
+
+  const timer = setTimeout(() => {
+    setIsLoading(false);
+  }, 3000); // 10 seconds
+
+  return () => clearTimeout(timer);
+}, []);
 
 
 
@@ -93,10 +93,12 @@ const ItemView =  ({ item }) => {
     <View style={styles.container}>
       <Text style={styles.text1}>Today</Text>
       {
-        completeMsg == "" ?<View style={{ justifyContent:'center', alignSelf:'center', marginTop:'50%'}}><Text>No data yet</Text></View>:
+        apploading ?
+        (<View>
+          <ShiView/>
+        </View>
+        ) :completeMsg.length > 0 ? (
         <View style={{ flex:1 }}>
-        
-
           <DraggableFlatList
                 keyExtractor={(item) => item.id}
                 data={completeMsg}
@@ -112,6 +114,10 @@ const ItemView =  ({ item }) => {
                 
               />
           </View>
+          ) : (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Text>No data available</Text>
+            </View>)
       }
      
     </View>

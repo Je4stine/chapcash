@@ -3,9 +3,11 @@ import React, {useRef} from 'react';
 import { SwipeItem, SwipeButtonsContainer, SwipeProvider } from 'react-native-swipe-item';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import Shimmer from '../../../Components/Shimmer';
+import ShiView from '../../../Components/ShiView';
 
 
-const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime, itemRef, handleTouch}) => {
+const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime, itemRef, handleTouch, loading=false}) => {
     const navigation = useNavigation();
     // const itemRef = useRef(null);
     const regexPattern = /\b(\w)/g;
@@ -38,30 +40,36 @@ const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime, itemRef, h
         </SwipeButtonsContainer>
     );
   return (
-    <View>
-      <SwipeProvider closeTrigger='onItemMoved' mode="Single">
-            <SwipeItem
-                style={styles.button}
-                swipeContainerStyle={styles.swipeContentContainerStyle}
-                rightButtons={rightButton}
-                ref={itemRef}
-                
-                >
-                <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <View style={{ backgroundColor:'#ff0000', width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>
-                    <View>
-                        <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>{FirstName}</Text>
-                        <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{MSISDN}</Text>
-                    </View>
-                </View>
-                <View>
-                    <Text style={{ fontFamily:'Montserrat-bold' , color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
-                    <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{TransTime}</Text>
-                </View>
-
-            </SwipeItem>
-        </SwipeProvider>
-    </View>
+    <>{
+        loading ? <View style={{ }}><ShiView/></View>:(
+            <View>
+            <SwipeProvider closeTrigger='onItemMoved' mode="Single">
+                  <SwipeItem
+                      style={styles.button}
+                      swipeContainerStyle={styles.swipeContentContainerStyle}
+                      rightButtons={rightButton}
+                      ref={itemRef}
+                      
+                      >
+                      <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
+                          <View style={{ backgroundColor:'#ff0000', width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>
+                          <View>
+                              <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>{FirstName}</Text>
+                              <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{MSISDN}</Text>
+                          </View>
+                      </View>
+                      <View>
+                          <Text style={{ fontFamily:'Montserrat-bold' , color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
+                          <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{TransTime}</Text>
+                      </View>
+      
+                  </SwipeItem>
+              </SwipeProvider>
+          </View>
+        )
+    }
+   
+    </>
   )
 };
 

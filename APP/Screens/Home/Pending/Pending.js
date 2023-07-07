@@ -6,10 +6,12 @@ import DraggableFlatList, {
   RenderItemParams,
   ScaleDecorator,
 } from 'react-native-draggable-flatlist';
+import ShiView from '../../../Components/ShiView';
 
 const Pending = () => {
   const [pendingMsg, setPendingMsg] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
+  const [ apploading, setIsLoading] = useState(false);
   
   const itemRef = useRef(null);
   const navigation = useNavigation();
@@ -62,14 +64,27 @@ const Pending = () => {
     );
   };
 
+  useEffect(() => {
+    if (pendingMsg == ''){
+      setIsLoading(true)
+    }
+
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); // 10 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <Text style={styles.text1}>Today</Text>
-      {pendingMsg == '' ? (
-        <View style={{ justifyContent: 'center', alignSelf: 'center', marginTop: '50%' }}>
-          <Text>No data yet</Text>
+      {apploading ? (
+        <View >
+          <ShiView/>
         </View>
-      ) : (
+      ) :pendingMsg.length > 0 ? (
         <View style={{ flex:1}}>
         <DraggableFlatList
           showsVerticalScrollIndicator={false}
@@ -85,6 +100,10 @@ const Pending = () => {
           }
         />
         </View>
+         ) : (
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Text>No data available</Text>
+          </View>
       )}
     </View>
   );
