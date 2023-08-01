@@ -42,28 +42,30 @@ const PayBill = ({ navigation, route }) => {
             <Text style={{ fontSize:27,  fontFamily:'Montserrat-bold', color:"#000", marginBottom:20, color:'#5AB500'}}>
                 Personal Profile📝
             </Text>
-            <Text style={{  fontFamily:'Montserrat-regular'}}>Kindly Fill in the details to personalize the application</Text>
+            <Text style={{  fontFamily:'Montserrat-regular',fontSize:16}}>Kindly Fill in the details to personalize the application</Text>
         </View>
     </View>
     <View style={{paddingHorizontal:30, marginTop:40}}>
+    <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Full name</Text>
        <TextInput
        
-        placeholder='Full Name'
+        // placeholder='Full Name'
         onChangeText={(text)=>setFullname(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10,  fontFamily:'Montserrat-regular'}}
        />
-       
       
     </View>
     <View style={{paddingHorizontal:30, marginTop:20}}>
+    <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Phone number</Text>
        <TextInput
-        placeholder='Phone Number'
+        // placeholder='Phone Number'
         onChangeText={(text)=>setPhoneNumber(text)}
-        style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10,  fontFamily:'Montserrat-regular'}}
+        style={{ borderBottomColor:'black', borderBottomWidth:1, padding:5,  fontFamily:'Montserrat-regular'}}
        />
      </View>
 
      <View style={{paddingHorizontal:30, marginTop:20, position:'relative'}}>
+     <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Shopcode</Text>
        <TextInput
         placeholder='Shop Code'
         keyboardType='numeric'

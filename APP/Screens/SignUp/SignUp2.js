@@ -1,9 +1,14 @@
 import { View, Text, TouchableOpacity,Image } from 'react-native';
-import React from 'react';
+import React, { useState} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
+import { BottomSheet } from 'react-native-btr';
+import { Entypo } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
+
 
 const SignUp2 = ({navigation}) => {
+  
   return (
     <SafeAreaView style={{ backgroundColor:'#fff', flex:1}}>
       
@@ -23,8 +28,6 @@ const SignUp2 = ({navigation}) => {
                 <AntDesign name="arrowright" size={24} color="#5AB500" />
             </TouchableOpacity>
         </View>
-        
-       
     </SafeAreaView>
   )
 };

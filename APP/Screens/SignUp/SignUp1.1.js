@@ -43,12 +43,13 @@ const UserSignUp = ({ navigation }) => {
             <Text style={{ fontSize:27, fontFamily:'Montserrat-bold', color:"#000", marginTop:20, marginBottom:20}}>
                 Hello there 👋
             </Text>
-            <Text style={{fontFamily:'Montserrat-regular'}}>Please enter your email address and password to create an account</Text>
+            <Text style={{fontFamily:'Montserrat-regular', fontSize:16}}>Please enter your email address and password to create an account</Text>
         </View>
     </View>
     <View style={{paddingHorizontal:30, marginTop:40}}>
+        <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Email</Text>
        <TextInput
-        placeholder='Email'
+        // placeholder='Email'
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
         onChangeText={(text)=>setEmail(text)}
        />
@@ -56,8 +57,9 @@ const UserSignUp = ({ navigation }) => {
        <Entypo name="mail" size={18} color="black" style={{ position:'absolute', bottom:5, right:30}}/>
     </View>
     <View style={{paddingHorizontal:30, marginTop:10}}>
+       <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Password</Text>
        <TextInput
-        placeholder='Password'
+        // placeholder='Password'
         secureTextEntry={secure}
         onChangeText={(text)=>setPassword(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
@@ -78,14 +80,14 @@ const UserSignUp = ({ navigation }) => {
     </View>:<View/>
     }
 
-    <View style={{ flexDirection:'row', justifyContent:'center', marginTop:20, marginLeft:20, marginRight:10}}>
+    <View style={{ flexDirection:'row', justifyContent:'center', marginTop:40, marginLeft:20, marginRight:10}}>
         <Checkbox
             style={{marginRight: 5,}}
             value={isChecked}
             onValueChange={setChecked}
             color={isChecked ? 'green' : undefined}
           />
-        <Text style={{ fontFamily:'Montserrat-regular'}}>
+        <Text style={{ fontFamily:'Montserrat-regular', fontSize:16}}>
             I agree to ChapCash Public agreement, Terms and Privacy conditions
         </Text>
     </View>

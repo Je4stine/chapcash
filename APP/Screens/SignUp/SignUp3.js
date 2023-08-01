@@ -44,13 +44,14 @@ const SignUp3 = ({ navigation }) => {
             <Text style={{ fontSize:27,  fontFamily:'Montserrat-bold', color:"#000", marginTop:20, marginBottom:20}}>
                 Hello there 👋
             </Text>
-            <Text style={{  fontFamily:'Montserrat-regular'}}>Please enter your email address and password to create an account</Text>
+            <Text style={{  fontFamily:'Montserrat-regular', fontSize:16}}>Please enter your email address and password to create an account</Text>
         </View>
     </View>
     <View style={{paddingHorizontal:30, marginTop:40}}>
+        <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Email</Text>
        <TextInput
        
-        placeholder='Email'
+        // placeholder='Email'
         onChangeText={(text)=>setEmail(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
@@ -58,8 +59,9 @@ const SignUp3 = ({ navigation }) => {
        <Entypo name="mail" size={18} color="black" style={{ position:'absolute', bottom:5, right:30}}/>
     </View>
     <View style={{paddingHorizontal:30, marginTop:10}}>
+        <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Password</Text>
        <TextInput
-        placeholder='Password'
+        // placeholder='Password'
         onChangeText={(text)=>setPassword(text)}
         secureTextEntry={secure}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10,  fontFamily:'Montserrat-regular'}}
@@ -73,9 +75,9 @@ const SignUp3 = ({ navigation }) => {
       
     </View>
     {
-      isError?<View style={{ marginTop:20, paddingHorizontal: 5,marginBottom:10, alignSelf:'center', width:'85%', height:50, backgroundColor:'rgba(255, 0, 0, 0.1)', borderRadius:5, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+      isError?<View style={{ marginTop:20, paddingHorizontal: 10,marginBottom:10, alignSelf:'center', width:'85%', height:50, backgroundColor:'rgba(255, 0, 0, 0.1)', borderRadius:5, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
       <MaterialIcons name="error-outline" size={20} color="red" />
-      <Text style={{ fontFamily:'Montserrat-regular', marginLeft:10, textAlign:'center', marginRight:10}}>Please agree to our terms of usage before you continue</Text>
+      <Text style={{ fontFamily:'Montserrat-regular', marginLeft:10, textAlign:'center', marginRight:10, }}>Please agree to our terms of usage before you continue</Text>
     </View>:<View/>
     }
 
@@ -101,9 +103,9 @@ const SignUp3 = ({ navigation }) => {
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'25%'}}></View>
         </View>
         <View style={{ flexDirection:'row', justifyContent:'space-around', marginTop:50}}>
-            <TouchableOpacity style={{ paddingHorizontal:20, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/google-icon.png')} style={{height:30, width:29}}/></TouchableOpacity>
-            <TouchableOpacity style={{ paddingHorizontal:20, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/facebook.png')} style={{height:30, width:30}}/></TouchableOpacity>
-            <TouchableOpacity style={{ paddingHorizontal:20, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/baseline-apple.png')} style={{height:37, width:36}}/></TouchableOpacity>
+            <TouchableOpacity style={{ paddingHorizontal:20, paddingVertical:10, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/google-icon.png')} style={{height:30, width:29}}/></TouchableOpacity>
+            <TouchableOpacity style={{ paddingHorizontal:20, paddingVertical:10, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/facebook.png')} style={{height:30, width:30}}/></TouchableOpacity>
+            <TouchableOpacity style={{ paddingHorizontal:20, paddingVertical:10, borderWidth:0.5, borderColor:'#D9D9D9', borderRadius:49, justifyContent:'center', alignItems:'center'}}><Image source={require('../../Assets/Images/baseline-apple.png')} style={{height:37, width:36}}/></TouchableOpacity>
         </View>
         
     </View>

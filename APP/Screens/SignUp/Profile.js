@@ -68,15 +68,16 @@ const Profile = ({ navigation, route }) => {
                 Till/Paybill details
             </Text>
             <View style={{}}>
-                <Text style={{ fontFamily:'Montserrat-regular'}}>A verification code will be sent to your mobile number after you click verify</Text>
+                <Text style={{ fontFamily:'Montserrat-regular', fontSize:16}}>A verification code will be sent to your mobile number after you click verify</Text>
             </View>
             
         </View>
     </View>
     <View style={{paddingHorizontal:30, marginTop:40}}>
+    <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Till/Paybill No.</Text>
        <TextInput
        
-        placeholder='Till/Paybill No.'
+        // placeholder='Till/Paybill No.'
         onChangeText={(text)=>setTill(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
@@ -84,8 +85,9 @@ const Profile = ({ navigation, route }) => {
       
     </View>
     <View style={{paddingHorizontal:30, marginTop:20}}>
+      <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Organization Name</Text>
        <TextInput
-        placeholder='Organization Name'
+        // placeholder='Organization Name'
         onChangeText={(text)=>setOrganization(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />

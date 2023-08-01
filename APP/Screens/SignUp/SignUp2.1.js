@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 import SuccessModal from '../../Components/SuccessModal';
 import { AppContext } from '../../Context/AppContext';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 const UserProfile = ({ navigation, route }) => {
@@ -13,6 +14,8 @@ const UserProfile = ({ navigation, route }) => {
    const [ loading, setLoading]= useState(false);
    const { user, setUser}= useContext(AppContext)
    const { password, email, phone, shopCode, fullname } = route.params;
+   const [isError, setIsError] = useState(false);
+   const [errorMsg, setErrorMsg] = useState('');
 
 //    const handleSignUp =()=>{
 //       setVisible(!visible)
@@ -43,7 +46,9 @@ const UserProfile = ({ navigation, route }) => {
       .then((response)=>{
           if(response.error){
             setTimeout(()=>{
-              Alert.alert(response.error)
+              // Alert.alert(response.error)
+              setErrorMsg(response.error)
+              setIsError(true)
             }, 100);
             setLoading(false);
           } else {
@@ -53,7 +58,9 @@ const UserProfile = ({ navigation, route }) => {
           }
       
       }).catch(error=> setTimeout(()=>{
-        Alert.alert(error)
+        // Alert.alert(error)
+        setIsError(true)
+        setErrorMsg(error)
         setLoading(false)
       },100))
    
@@ -71,14 +78,15 @@ const UserProfile = ({ navigation, route }) => {
                 Till/Paybill details
             </Text>
             <View style={{}}>
-                <Text style={{fontFamily:'Montserrat-regular'}}>A verification code will be sent to your mobile number after you click verify</Text>
+                <Text style={{fontFamily:'Montserrat-regular', fontSize:16}}>A verification code will be sent to your mobile number after you click verify</Text>
             </View>
             
         </View>
     </View>
     <View style={{paddingHorizontal:30, marginTop:40}}>
+      <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Till/Paybill No.</Text>
        <TextInput
-        placeholder='Till/Paybill No.'
+        // placeholder='Till/Paybill No.'
         onChangeText={(text)=>setTill(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
@@ -86,12 +94,19 @@ const UserProfile = ({ navigation, route }) => {
       
     </View>
     <View style={{paddingHorizontal:30, marginTop:20}}>
+      <Text style={{ fontFamily:'Montserrat-bold', marginTop:20, color:'grey', fontSize:18}}>Organization Name</Text>
        <TextInput
-        placeholder='Organization Name'
+        // placeholder='Organization Name'
         onChangeText={(text)=>setOrgname(text)}
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
      </View>
+     {
+      isError?<View style={{ marginTop:20, paddingHorizontal: 5,marginBottom:10, alignSelf:'center', width:'85%', height:50, backgroundColor:'rgba(255, 0, 0, 0.1)', borderRadius:5, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+      <MaterialIcons name="error-outline" size={20} color="red" />
+      <Text style={{ fontFamily:'Montserrat-regular', marginLeft:10, textAlign:'center', marginRight:10}}>{errorMsg}</Text>
+    </View>:<View/>
+    }
 
     
    

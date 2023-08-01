@@ -20,6 +20,7 @@ export default function App() {
     'Novera': require('./APP/Assets/Fonts/Fontspring-DEMO-novera-classicregular.otf'),
     'Montserrat-regular': require('./APP/Assets/Fonts/Montserrat-Regular.ttf'),
     'Montserrat-bold': require('./APP/Assets/Fonts/Montserrat-Bold.ttf'),
+    'Montserrat-medium': require('./APP/Assets/Fonts/Montserrat-Medium.ttf'),
   });
 
   const onLayoutRootView = useCallback(async () => {

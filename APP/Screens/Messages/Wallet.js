@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Wallet = () => {
   return (
-    <SafeAreaView>
-      <Text>Wallet</Text>
+    <SafeAreaView style={{ backgroundColor:'#fff', flex:1, alignItems:'center', justifyContent:'center'}}>
+      <Text style={{ fontFamily:'Montserrat-bold', fontSize:17}}>No messages yet</Text>
     </SafeAreaView>
   )
 };

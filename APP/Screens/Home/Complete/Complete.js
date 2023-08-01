@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid, ActivityIndicator } from 'react-native';
 import React,{useState, useEffect, useCallback, useRef} from 'react';
 import Message from './Message';
 import { useNavigation } from '@react-navigation/native';
@@ -63,7 +63,7 @@ useEffect(() => {
 
   const timer = setTimeout(() => {
     setIsLoading(false);
-  }, 3000); // 10 seconds
+  }, 2000); // 10 seconds
 
   return () => clearTimeout(timer);
 }, []);
@@ -95,7 +95,7 @@ const ItemView =  ({ item }) => {
       {
         apploading ?
         (<View>
-          <ShiView/>
+          <View style={{ marginTop:20,}}><ActivityIndicator size='large'/></View>
         </View>
         ) :completeMsg.length > 0 ? (
         <View style={{ flex:1 }}>

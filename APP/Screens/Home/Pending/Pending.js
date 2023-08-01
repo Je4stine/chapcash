@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid } from 'react-native';
+import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid, ActivityIndicator } from 'react-native';
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import Message from './Message';
 import { useNavigation } from '@react-navigation/native';
@@ -12,6 +12,7 @@ const Pending = () => {
   const [pendingMsg, setPendingMsg] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [ apploading, setIsLoading] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
   
   const itemRef = useRef(null);
   const navigation = useNavigation();
@@ -37,9 +38,21 @@ const Pending = () => {
       });
   };
 
+  // useEffect(() => {
+  //   getUserSms();
+  // }, []);
+
   useEffect(() => {
-    getUserSms();
-  }, []);
+    if (!isSearching) {
+      getUserSms();
+      
+      const interval = setInterval(() => {
+        getUserSms();
+      }, 10000);
+      return () => clearInterval(interval);
+    }
+  }, [isSearching]);
+
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -71,7 +84,7 @@ const Pending = () => {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // 10 seconds
+    }, 2000); // 10 seconds
 
     return () => clearTimeout(timer);
   }, []);
@@ -82,7 +95,7 @@ const Pending = () => {
       <Text style={styles.text1}>Today</Text>
       {apploading ? (
         <View >
-          <ShiView/>
+         <View style={{ marginTop:20,}}><ActivityIndicator size='large'/></View>
         </View>
       ) :pendingMsg.length > 0 ? (
         <View style={{ flex:1}}>

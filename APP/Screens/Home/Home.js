@@ -69,7 +69,7 @@ const Home = () => {
       
       <View style={{ width:'95%', alignSelf:'center', backgroundColor:'#f4f4f4', padding:15, borderRadius:10}}>
           <Stats/>
-          <Animated.View style={{ width:'90%', height:50, backgroundColor:'#D3D3D3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center'}}>
+          <Animated.View style={{ width:'90%', height:50, marginBottom:20,backgroundColor:'#D3D3D3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center'}}>
             <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Pending</Text></TouchableOpacity>
             <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Confirmed</Text></TouchableOpacity>
           </Animated.View>
@@ -113,11 +113,11 @@ const styles = StyleSheet.create({
     activeText:{
       color:'#fff',
       fontFamily:'Montserrat-bold',
-      fontSize:20
+      fontSize:23
     },
     inactiveText:{
       color:'#5AB500',
       fontFamily:'Montserrat-bold',
-      fontSize:20
+      fontSize:23
     }
 })
