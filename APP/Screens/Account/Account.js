@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native';
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -7,15 +7,46 @@ import { Entypo } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import AddImage from './AddImage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Account = ({navigation}) => {
   const [ visible, setVisible]= useState(false);
+  const [abv, setAbv] = useState('');
 
   const toggleBottomNavigationView = () => {
     setVisible(!visible);
   
   };
+
+
+  const getData = async()=>{
+    try{
+      const username = await AsyncStorage.getItem('username');
+      const regexPattern = /\b(\w)/g;
+      const abrreviate = username.match(regexPattern);
+      setAbv(abrreviate)
+    }catch(error){
+      console.log(error)
+    }
+  };
+
+  useEffect(()=>{
+    getData();
+  },[]);
+
+
+  const handleLogout= async()=>{
+    await AsyncStorage.removeItem('token');
+    ToastAndroid.show('Login out....', ToastAndroid.SHORT)
+  };
+
+  
+
+
+const handleCommingSoon =()=>{
+    ToastAndroid.show('Feature coming soon', ToastAndroid.SHORT)
+};
 
 
 
@@ -37,7 +68,7 @@ const Account = ({navigation}) => {
         <View style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
             <View style={{ flexDirection:'row', alignItems:'center'}}>
                     <TouchableOpacity onPress={toggleBottomNavigationView} style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
-                        <Text style={{ fontFamily:'Montserrat-regular'}}>NO</Text>
+                        <Text style={{ fontFamily:'Montserrat-bold', fontSize:24}}>{abv}</Text>
                         <View style={{position:'absolute', bottom:-1, right:5, backgroundColor:'#fff', padding:2, borderRadius:7}}><Entypo name="camera" size={12} color="black" /></View>
                     </TouchableOpacity>
                     <View>
@@ -56,7 +87,7 @@ const Account = ({navigation}) => {
             </Text>
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'95%', marginTop:5}}></View>
 
-            <TouchableOpacity style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+            <TouchableOpacity onPress={handleCommingSoon} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>
                         <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
                             <FontAwesome5 name="money-bill" size={18} color="black" />
@@ -92,7 +123,7 @@ const Account = ({navigation}) => {
                 </View>
             </TouchableOpacity>
             
-            <TouchableOpacity style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Privacy')} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>
                         <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
                              <MaterialIcons name="privacy-tip" size={24} color="black" />
@@ -108,7 +139,7 @@ const Account = ({navigation}) => {
             </TouchableOpacity>
 
 
-            <TouchableOpacity style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+            <TouchableOpacity onPress={()=>navigation.navigate('Help')} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>
                         <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
                             <Feather name="help-circle" size={24} color="black" />
@@ -123,7 +154,7 @@ const Account = ({navigation}) => {
                 </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+            <TouchableOpacity onPress={handleLogout} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>
                         <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
                             <AntDesign name="logout" size={24} color="black" />

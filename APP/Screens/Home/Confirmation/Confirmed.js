@@ -50,6 +50,9 @@ const Confirmed = ({ navigation, route }) => {
           <View style={{ marginVertical:20, padding:18, width:'50%', backgroundColor:'#EFFAE5', borderRadius:40, justifyContent:'center', alignItems:'center'}}>
             <Text style={{ color:'#5AB500', fontFamily:'Montserrat-bold', fontSize:20}}>Confirmed</Text>
           </View>
+          <Text style={{ color:'gray', fontFamily:'Montserrat-bold'}}>
+            Confirmed By 
+          </Text>
       </View>
     </SafeAreaView>
   )

@@ -7,6 +7,7 @@ import { Entypo, Ionicons  } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useHeaderHeight } from '@react-navigation/elements'
 import { AppContext } from '../../Context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -107,7 +108,11 @@ const SignIn = ({ navigation }) => {
             if (response.token !=undefined){
               setLoading(false)
               setUser(response)
-              navigation.navigate('Main')
+              AsyncStorage.setItem('username', response.name);
+              AsyncStorage.setItem('image', response.url);
+              AsyncStorage.setItem('email', response.user);
+              AsyncStorage.setItem('token', response.token); 
+              navigation.navigate('Main');
             }else {
               setTimeout(()=>{
                 setIsError(true);

@@ -5,6 +5,7 @@ import { TextInput } from 'react-native-gesture-handler';
 import SuccessModal from '../../Components/SuccessModal';
 import { AppContext } from '../../Context/AppContext';
 import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const UserProfile = ({ navigation, route }) => {
@@ -52,8 +53,13 @@ const UserProfile = ({ navigation, route }) => {
             }, 100);
             setLoading(false);
           } else {
+            AsyncStorage.setItem('username', response.name);
+            // AsyncStorage.setItem('image', response.url);
+            AsyncStorage.setItem('email', response.email);
+            // AsyncStorage.setItem('token', response.token); 
             setLoading(false)
             setUser(response)
+            console.log(response)
             navigation.navigate('Main')
           }
       

@@ -7,6 +7,7 @@ import Pending from './Pending/Pending';
 import Complete from './Complete/Complete';
 import { Ionicons } from '@expo/vector-icons';
 import { AppContext } from '../../Context/AppContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Home = () => {
   const [index, setIndex]=useState(1);
@@ -44,8 +45,21 @@ const Home = () => {
   };
 
 
+  const getData = async()=>{
+    try{
+      const username = await AsyncStorage.getItem('username');
+      console.log(username)
+
+    }catch(error){
+      console.log(error)
+    }
+  }
+
+
   useEffect(() => {
     animateView();
+    getData();
+    console.log(user)
   }, []);
 
 
@@ -64,7 +78,7 @@ const Home = () => {
             style={{ padding:10, borderWidth:0.5, borderRadius:20, width:'90%', alignSelf:'center', marginTop:20, marginBottom:20, backgroundColor:'#efefef'}}
           />
           </View>
-        ):(<HomeHeader onPress={toggleSearch} name={user.name}/>)
+        ):(<HomeHeader onPress={toggleSearch} name={user.name} URL={user.url}/>)
       }
       
       <View style={{ width:'95%', alignSelf:'center', backgroundColor:'#f4f4f4', padding:15, borderRadius:10}}>

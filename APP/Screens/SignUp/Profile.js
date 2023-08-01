@@ -4,6 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { TextInput } from 'react-native-gesture-handler';
 import SuccessModal from '../../Components/SuccessModal';
 import { AppContext } from '../../Context/AppContext';
+import { MaterialIcons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Profile = ({ navigation, route }) => {
@@ -11,7 +13,9 @@ const Profile = ({ navigation, route }) => {
    const [organization, setOrganization]= useState('');
    const { password, email, shopNumber, fullname, phonenumber} = route.params
    const [ loading, setLoading] = useState(false);
-   const { user, setUser} = useContext(AppContext)
+   const { user, setUser} = useContext(AppContext);
+   const [isError, setIsError] = useState(false);
+   const [errorMsg, setErrorMsg] = useState('');
 
    const handleSignUp = async ()=>{
     setLoading(true);
@@ -38,10 +42,16 @@ const Profile = ({ navigation, route }) => {
       .then((response)=>{
           if(response.error){
             setTimeout(()=>{
-              Alert.alert(response.error)
+              // Alert.alert(response.error);
+              setErrorMsg(response.error)
+              setIsError(true)
             }, 100);
             setLoading(false);
           } else {
+            AsyncStorage.setItem('username', response.name);
+            // AsyncStorage.setItem('image', response.url);
+            AsyncStorage.setItem('email', response.email);
+            // AsyncStorage.setItem('token', response.token); 
             setLoading(false)
             setUser(response)
             navigation.navigate('OTP')
@@ -92,6 +102,12 @@ const Profile = ({ navigation, route }) => {
         style={{ borderBottomColor:'black', borderBottomWidth:1, padding:10, fontFamily:'Montserrat-regular'}}
        />
      </View>
+     {
+      isError?<View style={{ marginTop:20, paddingHorizontal: 5,marginBottom:10, alignSelf:'center', width:'85%', height:50, backgroundColor:'rgba(255, 0, 0, 0.1)', borderRadius:5, flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+      <MaterialIcons name="error-outline" size={20} color="red" />
+      <Text style={{ fontFamily:'Montserrat-regular', marginLeft:10, textAlign:'center', marginRight:10}}>{errorMsg}</Text>
+    </View>:<View/>
+    }
 
     
    

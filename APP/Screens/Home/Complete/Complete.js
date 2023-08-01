@@ -63,7 +63,7 @@ useEffect(() => {
 
   const timer = setTimeout(() => {
     setIsLoading(false);
-  }, 2000); // 10 seconds
+  }, 500);
 
   return () => clearTimeout(timer);
 }, []);

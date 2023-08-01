@@ -38,6 +38,25 @@ const Pending = () => {
       });
   };
 
+
+  const groupMessagesByDate = (messages) => {
+    const groupedMessages = [];
+    let currentDate = null;
+
+    messages.forEach((message) => {
+      const messageDate = new Date(message.TransTime).toDateString();
+
+      if (messageDate !== currentDate) {
+        currentDate = messageDate;
+        groupedMessages.push({ type: 'date', date: currentDate });
+      }
+
+      groupedMessages.push({ type: 'message', message });
+    });
+
+    return groupedMessages;
+  };
+
   // useEffect(() => {
   //   getUserSms();
   // }, []);
@@ -64,6 +83,14 @@ const Pending = () => {
   }, []);
 
   const ItemView = ({ item }) => {
+    if (item.type === 'date') {
+      return (
+        <View >
+          <Text>{item.date}</Text>
+        </View>
+      );
+    }
+
     return (
       <Message
         TransTime={item.TransTime}
