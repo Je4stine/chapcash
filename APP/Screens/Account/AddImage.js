@@ -1,5 +1,5 @@
 import { View, Text, TouchableOpacity, Alert, ToastAndroid } from 'react-native';
-import React, { useContext, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import { BottomSheet } from 'react-native-btr';
 import { AntDesign } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
@@ -10,7 +10,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddImage = ({ visible, toggleBottomNavigationView}) => {
   const [image, setImage] = useState(null);
-  const { user, setUser } = useContext(AppContext)
+  const { user, setUser } = useContext(AppContext);
+  const [email, setEmail] = useState('');
+
+  const getData =async()=>{
+    const mail = await AsyncStorage.getItem('email');
+      setEmail(mail);
+  };
+
+
+  useEffect(()=>{
+    getData();
+  },[]);
+
+
+
   
   
   const pickImage = async () => {
@@ -39,11 +53,11 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
         name: filename,
       });
 
-      console.log(formData)
+      // console.log(formData)
       
       ToastAndroid.show('Please Wait...', ToastAndroid.SHORT);
 
-      const response = await fetch(`https://www.chapcash.mopawa.co.ke/api/users/${user.user}/image`, {
+      const response = await fetch(`https://www.chapcash.mopawa.co.ke/api/users/${email}/image`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -51,10 +65,11 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
         body: formData,
       });
 
-      console.log(response)
+      await AsyncStorage.removeItem('image');
+      console.log(response.imageUrl)
       Alert.alert("Image Uploaded");
       toggleBottomNavigationView()
-      // getImageByUser();
+      getImageByUser();
 
 
   
@@ -69,6 +84,25 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
       console.log('Error uploading image:', error.message);
     }
   };
+
+
+  const getImageByUser =async()=>{
+    try {
+      const response = await fetch('https://www.chapcash.mopawa.co.ke/api/image/getImage', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email}),
+      });
+
+      const data = await response.json();
+      console.log(data)
+      await AsyncStorage.setItem('image', data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 
 

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, ToastAndroid } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, Image  } from 'react-native';
 import React, { useState, useEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
@@ -13,6 +13,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Account = ({navigation}) => {
   const [ visible, setVisible]= useState(false);
   const [abv, setAbv] = useState('');
+  const [loading, setLoading]= useState(false);
+  const [profileimg, setProfileImg]= useState('');
+  const [email, setEmail]= useState('');
 
   const toggleBottomNavigationView = () => {
     setVisible(!visible);
@@ -25,7 +28,12 @@ const Account = ({navigation}) => {
       const username = await AsyncStorage.getItem('username');
       const regexPattern = /\b(\w)/g;
       const abrreviate = username.match(regexPattern);
-      setAbv(abrreviate)
+      setAbv(abrreviate);
+      const Prof = await AsyncStorage.getItem('image');
+      const mail = await AsyncStorage.getItem('email');
+      setEmail(mail);
+      setProfileImg(Prof)
+
     }catch(error){
       console.log(error)
     }
@@ -37,8 +45,15 @@ const Account = ({navigation}) => {
 
 
   const handleLogout= async()=>{
+    setLoading(true)
     await AsyncStorage.removeItem('token');
-    ToastAndroid.show('Login out....', ToastAndroid.SHORT)
+    await AsyncStorage.removeItem('username');
+    await AsyncStorage.removeItem('image');
+    await AsyncStorage.removeItem('email');
+    
+    BackHandler.exitApp();
+    setLoading(false)
+
   };
 
   
@@ -175,6 +190,11 @@ const handleCommingSoon =()=>{
       </View>
       <AddImage visible={visible} toggleBottomNavigationView={toggleBottomNavigationView}/>
       </ScrollView>
+      {
+      loading?<View style={{ backgroundColor:'rgba(0, 0, 0, 0.2)', alignSelf:'center', alignItems:'center', justifyContent:'center',position:'absolute', top:0, left:0, right:0, bottom:0}}>
+      <Image source={require('../../Assets/Images/loader.gif')} style={{ height:70, width:70}}/>
+    </View>:<View/>
+    }
     </SafeAreaView>
   )
 };
