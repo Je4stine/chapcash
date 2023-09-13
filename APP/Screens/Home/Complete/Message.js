@@ -57,7 +57,7 @@ const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, 
                     </View>
                 </View>
                 <View>
-                    <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
+                    <Text style={{ fontFamily:'Montserrat-medium', color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
                     <Text style={{alignSelf:"flex-end", fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{TransTime}</Text>
                 </View>
 

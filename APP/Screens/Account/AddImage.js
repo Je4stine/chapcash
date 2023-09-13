@@ -65,19 +65,24 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
         body: formData,
       });
 
-      await AsyncStorage.removeItem('image');
-      console.log(response.imageUrl)
-      Alert.alert("Image Uploaded");
       toggleBottomNavigationView()
-      getImageByUser();
 
-
-  
-      if (response.status !== 200) {
-          
-          console.log("error")
+      if (response.ok) {
+        const responseJson = await response.json();
+       
       
-      };
+        if (responseJson && responseJson.imageUrl) {
+    
+          const imageUrl = responseJson.imageUrl;
+          console.log('Image URL:', imageUrl);
+          Alert.alert("Image Uploaded");
+          await AsyncStorage.setItem('image', imageUrl);
+        } else {
+          console.error('Response does not contain imageUrl.');
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
+      }
       
   
     } catch (error) {
@@ -86,39 +91,27 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
   };
 
 
-  const getImageByUser =async()=>{
-    try {
-      const response = await fetch('https://www.chapcash.mopawa.co.ke/api/image/getImage', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({email}),
-      });
-
-      const data = await response.json();
-      console.log(data)
-      await AsyncStorage.setItem('image', data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
-
-
-
-
   const openCamera = async () => {
-    // console.log(user)
     try {
-      let result = await ImagePicker.launchCameraAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.All,
-        allowsEditing: true,
-        quality: 1,
-      });
+      const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+  
+      if (permissionResult.granted === false) {
+        alert("You've refused to allow this app to access your camera!");
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync();
+      
   
       setImage(result.assets[0].uri);
       console.log(image);
+
+      if (!result.canceled) {
+           
+        console.log(result);
+      } else {
+        cosole.log('Cancelled')
+      }
 
       const updatedImage = { ...user, imageUrl: result.assets[0].uri };
       setUser(updatedImage);
@@ -133,11 +126,11 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
         name: filename,
       });
 
-      console.log(formData)
+      // console.log(formData)
       
       ToastAndroid.show('Please Wait...', ToastAndroid.SHORT);
 
-      const response = await fetch(`https://www.chapcash.mopawa.co.ke/api/users/${user.user}/image`, {
+      const response = await fetch(`https://www.chapcash.mopawa.co.ke/api/users/${email}/image`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -145,22 +138,30 @@ const AddImage = ({ visible, toggleBottomNavigationView}) => {
         body: formData,
       });
 
-      console.log(response)
-      Alert.alert("Image Uploaded");
       toggleBottomNavigationView()
-      // getImageByUser();
 
+      if (response.ok) {
+        const responseJson = await response.json();
+       
+      
+        if (responseJson && responseJson.imageUrl) {
+    
+          const imageUrl = responseJson.imageUrl;
+          console.log('Image URL:', imageUrl);
+          Alert.alert("Image Uploaded");
+          await AsyncStorage.setItem('image', imageUrl);
+        } else {
+          console.error('Response does not contain imageUrl.');
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
+      }
+      
+  
+      
 
-  
-      if (response.status !== 200) {
-          
-          console.log("error")
-      
-      };
-      
-  
     } catch (error) {
-      console.log('Error uploading image:', error.message);
+      console.error("An error occurred:", error);
     }
   };
 

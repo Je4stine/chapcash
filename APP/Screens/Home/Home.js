@@ -5,14 +5,26 @@ import HomeHeader from './HomeHeader';
 import Stats from './Stats';
 import Pending from './Pending/Pending';
 import Complete from './Complete/Complete';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { AppContext } from '../../Context/AppContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AntDesign } from '@expo/vector-icons';
+import SelectDropdown from 'react-native-select-dropdown'
+
+
 
 const Home = () => {
   const [index, setIndex]=useState(1);
   const [ visible, setVisible] = useState(false);
   const { user} = useContext(AppContext);
+  const [sheetVisible, setSheetVisible] = useState(false);
+  const [role, setRole] = useState('admin')
+  const Categories = ["Date", "Users"]
+
+
+  const toggleBottomNavigationView =()=>{
+    setSheetVisible(!sheetVisible)
+  }
 
   const handleToggle =(index)=>{
     setIndex(index)
@@ -48,7 +60,8 @@ const Home = () => {
   const getData = async()=>{
     try{
       const username = await AsyncStorage.getItem('username');
-      console.log(username)
+      const userImage = await AsyncStorage.getItem('image');
+      console.log(userImage)
 
     }catch(error){
       console.log(error)
@@ -63,6 +76,64 @@ const Home = () => {
   }, []);
 
 
+  //Get all data from server once then save to Context 
+
+
+  const searchFilterFunction = (text) => {
+    // Check if searched text is not blank
+    if (text) {
+      // Inserted text is not blank
+      // Filter the appropriate data source based on the active tab
+      let newData;
+      setIsSearching(true);
+
+      if (isActive === 1) {
+        // Pending tab is active
+        newData = pendingData.filter(function (item) {
+          // Applying filter for the inserted text in search bar
+          const itemData = item.TransAmount
+            ? item.TransAmount.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+        setPendingData(newData);
+
+      } else if (isActive === 2) {
+        // Complete tab is active
+        newData = completeData.filter(function (item) {
+          // Applying filter for the inserted text in search bar
+          const itemData = item.TransAmount
+            ? item.TransAmount.toUpperCase()
+            : ''.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+        setCompleteData(newData);
+      }
+      setConfirm(newData);
+      setSearch(text);
+    } else {
+      // Inserted text is blank
+      // Reset the data sources based on the active tab
+      setIsSearching(false);
+      if (isActive === 1) {
+        // setConfirm(allPendingData);
+        // setPendingData(allPendingData);
+        console.log("OKay")
+      } else if (isActive === 2) {
+        // setConfirm(allCompleteData);
+        // setCompleteData(allCompleteData);
+        console.log("OKay")
+      }
+      setSearch(text);
+    }
+  };
+
+
+
+
+
 
   return (
     <SafeAreaView style={{ flex:1, backgroundColor:'#fff', position:'relative'}}>
@@ -70,38 +141,77 @@ const Home = () => {
       {
         visible ?(
           <View>
-          <TextInput
-            placeholder="Search..."
-            onBlur={()=>{
-              setVisible(false)
-            }}
-            style={{ padding:10, borderWidth:0.5, borderRadius:20, width:'90%', alignSelf:'center', marginTop:20, marginBottom:20, backgroundColor:'#efefef'}}
-          />
+            <TextInput
+              placeholder="Search..."
+              onBlur={()=>{
+                setVisible(false)
+              }}
+              style={{ padding:10, borderWidth:0.5, borderRadius:20, width:'90%', alignSelf:'center', marginTop:20, marginBottom:20, backgroundColor:'#efefef'}}
+            />
+            <TouchableOpacity onPress={handleClickOutside} style={{ position:'absolute', top:'35%', right:'8%'}}>
+              <AntDesign name="closecircle" size={24} color="red" />
+            </TouchableOpacity>
           </View>
-        ):(<HomeHeader onPress={toggleSearch} name={user.name} URL={user.url}/>)
+        ):(<HomeHeader onPress={toggleSearch} name={user.name} URL={user.url} handleShare={toggleBottomNavigationView}/>)
       }
       
-      <View style={{ width:'95%', alignSelf:'center', backgroundColor:'#f4f4f4', padding:15, borderRadius:10}}>
+      <View style={{ width:'95%', alignSelf:'center', backgroundColor:'#f4f4f4', padding:15, borderRadius:10, marginBottom:'3%'}}>
           <Stats/>
           <Animated.View style={{ width:'90%', height:50, marginBottom:20,backgroundColor:'#D3D3D3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center'}}>
             <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Pending</Text></TouchableOpacity>
             <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Confirmed</Text></TouchableOpacity>
           </Animated.View>
+          {/* <TouchableOpacity style={{ alignSelf:'center',borderWidth:1, borderRadius:30, borderColor:'#5AB500', width:'35%', height:45, backgroundColor:'#fff', alignItems:'center', justifyContent:'center', flexDirection:'row'}}>
+            <Text style={{ fontFamily:'Montserrat-regular'}}>
+              Date
+            </Text>
+            <MaterialIcons name="keyboard-arrow-down" size={24} color="#5AB500" />
+          </TouchableOpacity> */}
+          
+            <SelectDropdown
+                buttonStyle={{ backgroundColor:'#fff', width:'35%', height:45, alignSelf:'center',borderWidth:1, borderRadius:30, borderColor:'#5AB500', paddingHorizontal:10, position: 'absolute', bottom:'-10%'}}
+                defaultButtonText='Date'
+                buttonTextStyle={{ color:"#5AB500", fontFamily:'Montserrat-regular', fontSize:14}}
+                renderDropdownIcon={isOpened => {
+                  return <FontAwesome name={isOpened ? 'chevron-up' : 'chevron-down'} color={'#5AB500'} size={14} />;
+                }}
+                dropdownIconPosition={'right'}
+                dropdownStyle={{ marginRight:10}}
+                rowStyle={{ backgroundColor:'#fff'}}
+                rowTextStyle={{ color:"#5AB500", fontFamily:'Montserrat-regular', fontSize:14}}
+                data={Categories}
+                onSelect={(selectedItem, index) => {
+                  console.log(selectedItem, index)
+                }}
+                buttonTextAfterSelection={(selectedItem, index) => {
+                  // text represented after item is selected
+                  // if data array is an array of objects then return selectedItem.property to render after item is selected
+                  return selectedItem
+                }}
+                rowTextForSelection={(item, index) => {
+                  // text represented for each item in dropdown
+                  // if data array is an array of objects then return item.property to represent item in dropdown
+                  return item
+                }}
+              />
+              {/* <View style={{position: 'absolute', right:'38%', top:'24%'}}><MaterialIcons name="keyboard-arrow-down" size={24} color="#5AB500" /></View> */}
+    
+        
       </View>
      
-         
+    
       { index===1?<Pending/>:null
       }
       {
          index===2?<Complete/>:null
       }
-   
-     {visible && (
+
+     {/* {visible && (
         <TouchableOpacity
           style={{ position: 'absolute', top: 120, bottom: 0, left: 0, right: 0}}
           onPress={handleClickOutside}
         />
-      )}
+      )} */}
     </SafeAreaView>
   );
 };

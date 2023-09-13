@@ -6,9 +6,9 @@ const Active = () => {
     const [isEnabled, setIsEnabled] = useState(true);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
-    <View style={{ backgroundColor:'#EFFAE5'}}>
+    <View style={{ backgroundColor:'#fff', marginTop:20}}>
       <View style={{  marginVertical:20 ,borderBottomColor:'gray', borderBottomWidth:1, width:'90%', alignSelf:'center', justifyContent:'space-between',alignItems:'center',flexDirection:'row'}}>
-          <Text style={{ fontFamily:'Hank'}}>Deactivate all</Text>
+          <Text style={{ fontFamily:'Hank_bold'}}>Deactivate all</Text>
           <Switch
             trackColor={{false: '#767577', true: 'green'}}
             thumbColor={isEnabled ? '#fff' : '#fff'}
@@ -17,7 +17,7 @@ const Active = () => {
             value={isEnabled}
           />
         </View>
-        <ScrollView style={{ flexGrow:1}}>
+        <ScrollView style={{ }}>
             <UserCard/>
             <UserCard/>
             <UserCard/>
@@ -26,6 +26,7 @@ const Active = () => {
             <UserCard/>
             <UserCard/>
             <UserCard/>
+            
         </ScrollView>
            
     </View>

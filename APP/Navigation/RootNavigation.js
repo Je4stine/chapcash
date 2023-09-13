@@ -8,6 +8,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { Octicons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
+
+
 import Home from '../Screens/Home/Home';
 import Wallet from '../Screens/Messages/Wallet';
 import Users from '../Screens/Users/Users';
@@ -36,7 +38,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect} from 'react';
 import Privacy from '../Screens/Account/Privacy';
 import Help from '../Screens/Account/Help';
-
+import RateUs from '../Screens/Account/RateUs';
+import Notification from '../Screens/Account/Notification';
+import Agreements from '../Screens/Account/Agreements';
+import Story from '../Screens/Account/Story';
+import Main from '../Screens/Management/Main';
 
 
 
@@ -44,6 +50,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
+  const [role, setRole] = useState('admin')
     return (
       <Tab.Navigator
         screenOptions={({route}) => ({
@@ -85,18 +92,36 @@ function BottomTabs() {
             headerShown: false,
           }}
         />
-        <Tab.Screen name="Users" component={Account} 
-          options = {{
-            tabBarActiveTintColor:"#01722E",
-            tabBarInactiveTintColor:'#5AB500',
-            tabBarLabel:'Settings',
-            title:'',
-            tabBarIcon: ({ color, size }) => (
-            <Feather name="settings" size={size} color={color} />
-            ),
-            headerShown: false,
-          }}
-        />
+       {
+        role === 'admin'?  
+        <Tab.Screen name="Staff" component={Users} 
+        options = {{
+          tabBarActiveTintColor:"#01722E",
+          tabBarInactiveTintColor:'#5AB500',
+          tabBarLabel:'Staff',
+          title:'',
+          tabBarIcon: ({ color, size }) => (
+          <Feather name="users" size={size} color={color} />
+          
+          ),
+          headerShown: false,
+        }}
+      />
+      :
+      <Tab.Screen name="Users" component={Account} 
+      options = {{
+        tabBarActiveTintColor:"#01722E",
+        tabBarInactiveTintColor:'#5AB500',
+        tabBarLabel:'Settings',
+        title:'',
+        tabBarIcon: ({ color, size }) => (
+        <Feather name="settings" size={size} color={color} />
+        
+        ),
+        headerShown: false,
+      }}
+    />
+       }
       </Tab.Navigator>
     );
   };
@@ -149,6 +174,9 @@ function BottomTabs() {
         <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
         <Stack.Screen name='Privacy' component={Privacy} options={{ headerShown: false }} />
         <Stack.Screen name='Help' component={Help} options={{ headerShown: false }} />
+        <Stack.Screen name='Rate' component={RateUs} options={{ headerShown: false }} />
+        <Stack.Screen name='Notification' component={Notification} options={{ headerShown: false }} />
+        <Stack.Screen name='Agreement' component={Agreements} options={{ headerShown: false }} />
       </>
     ) : showOnboarding ? (
       <>
@@ -173,6 +201,10 @@ function BottomTabs() {
         <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
         <Stack.Screen name='Privacy' component={Privacy} options={{ headerShown: false }} />
         <Stack.Screen name='Help' component={Help} options={{ headerShown: false }} />
+        <Stack.Screen name='Rate' component={RateUs} options={{ headerShown: false }} />
+        <Stack.Screen name='Notification' component={Notification} options={{ headerShown: false }} />
+        <Stack.Screen name='Agreement' component={Agreements} options={{ headerShown: false }} />
+        <Stack.Screen name='Story' component={Story} options={{ headerShown: false }} />
       </>
     ) : (
       <>
@@ -193,6 +225,7 @@ function BottomTabs() {
         <Stack.Screen name='Settings' component={Settings} options={{ headerShown: false }} />
         <Stack.Screen name='Privacy' component={Privacy} options={{ headerShown: false }} />
         <Stack.Screen name='Help' component={Help} options={{ headerShown: false }} />
+        <Stack.Screen name='Story' component={Story} options={{ headerShown: false }} />
       </>
     )}
           

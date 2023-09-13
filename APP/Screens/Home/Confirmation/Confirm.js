@@ -1,10 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid, Alert, Image} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid, Alert, Image, Animated, Modal } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState} from 'react';
+import React, { useState, useRef, useEffect} from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
 import { Feather } from '@expo/vector-icons';
-import SnackBar from 'react-native-snackbar-component'
+import SnackBar from 'react-native-snackbar-component';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -14,11 +16,24 @@ const Confirm = ({ navigation, route}) => {
   const [visible, setVible]= useState(false);
   const [ msg, setMsg]= useState('');
   const [ loading, setLoading]= useState(false);
+  const [user, setUser] = useState('');
+  // const navigation = useNavigation()
 
-  // const copyToClipboard = () => {
-  //   // Clipboard.setString('hello world');
-    
-  // };
+  const handleDismiss =async()=>{
+    setVible(false);
+    navigation.navigate('Main')
+  };
+
+  const getName =async()=>{
+    const username = await AsyncStorage.getItem('username');
+    setUser(username)
+  };
+
+  useEffect(()=>{
+    getName();
+  },[]);
+
+ 
 
   const regexPattern = /\b(\w)/g;
   const abrreviate = FirstName.match(regexPattern);
@@ -46,6 +61,7 @@ const Confirm = ({ navigation, route}) => {
         },
         body: JSON.stringify({
           id:msgId,
+          user: user
         })
       })
       .then((response)=>response.json())
@@ -63,6 +79,53 @@ const Confirm = ({ navigation, route}) => {
    
   };
     
+
+  const ModalPoup = ({visible, children}) => {
+    const [showModal, setShowModal] = useState(visible);
+    const scaleValue = useRef(new Animated.Value(0)).current;
+
+ 
+    
+
+    useEffect(() => {
+      toggleModal();
+    }, [visible]);
+
+
+
+
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true);
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      } else {
+        setTimeout(() => setShowModal(false), 200);
+        Animated.timing(scaleValue, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      }
+    };
+
+
+    return (
+      <Modal transparent visible={showModal}>
+        <View style={styles.modalBackGround}>
+          <Animated.View
+            style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+            {children}
+          </Animated.View>
+        </View>
+      </Modal>
+    );
+  };
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -97,7 +160,21 @@ const Confirm = ({ navigation, route}) => {
       <Image source={require('../../../Assets/Images/loader.gif')} style={{ height:70, width:70}}/>
     </View>:<View/>
     }
-      <SnackBar visible={visible} textMessage="Payment confirmed" actionHandler={()=>{setVible(!visible)}} actionText="Dismiss"/>
+      <View style={{ justifyContent:'center', alignItems:'center',}}>
+       <ModalPoup visible={visible}>
+          <View style={{alignItems: 'center'}}>
+          </View>
+          <View style={{alignItems: 'center'}}>
+            <Text style={{ fontFamily:'Montserrat-bold', fontSize:21, color:'#5AB500',}}>Payment Confirmed</Text>
+          </View>
+          <View style={{alignItems: 'center', marginTop:20}}>
+            <Image source={ require('../../../Assets/Images/verified.gif')} style={{ height:100, width:100}}/>
+          </View>
+          <TouchableOpacity onPress={handleDismiss} style={{ alignSelf:'center',marginTop:20, padding:10, width:'30%', backgroundColor:'#5AB500', borderRadius:40, justifyContent:'center', alignItems:'center'}}>
+            <Text style={{ color:'#fff', fontFamily:'Montserrat-bold', fontSize:20}}>Dismiss</Text>
+          </TouchableOpacity>
+        </ModalPoup>
+        </View>
     </SafeAreaView>
   )
 }
@@ -119,5 +196,25 @@ const styles = StyleSheet.create({
         justifyContent:'center',
         alignItems:'center',
         marginBottom:20
+    },
+    modalBackGround: {
+      flex: 1,
+      backgroundColor: 'rgba(0,0,0,0.5)',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    modalContainer: {
+      width: '90%',
+      backgroundColor: '#fff',
+      paddingHorizontal: 10,
+      paddingVertical: 50,
+      borderRadius: 10,
+      elevation: 20,
+    },
+    header: {
+      width: '100%',
+      height: 40,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
     },
 })

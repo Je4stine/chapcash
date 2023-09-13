@@ -15,13 +15,13 @@ const Users = () => {
 
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ backgroundColor:'#fff'}}>
         <HomeHeader/>
-        <View style={{ width:'90%', height:50, backgroundColor:'#D3D3D3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center', marginTop:20}}>
+        <View style={{ width:'90%', height:50, backgroundColor:'#d3d3d3', borderRadius:30, justifyContent:'center', alignItems:'center', flexDirection:'row', alignSelf:'center', marginTop:20}}>
           <TouchableOpacity onPress={()=>handleToggle(1)} style={[index===1?styles.active:styles.inactive]}><Text style={[index===1?styles.activeText:styles.inactiveText]}>Active</Text></TouchableOpacity>
           <TouchableOpacity onPress={()=>handleToggle(2)} style={[index===2?styles.active:styles.inactive]} ><Text style={[index===2?styles.activeText:styles.inactiveText]}>Inactive</Text></TouchableOpacity>
         </View>
-        <View>
+        <View >
           { index===1?<Active/>:null
           }
           {
@@ -36,7 +36,7 @@ export default Users;
 
 const styles = StyleSheet.create({
   active: {
-    backgroundColor:'#136207',
+    backgroundColor:'#5AB500',
     justifyContent:'center',
     alignItems:'center',
     height:50,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     fontSize:20
   },
   inactiveText:{
-    color:'#136207',
+    color:'#5AB500',
     fontFamily:'Hank_black',
     fontSize:20
   }

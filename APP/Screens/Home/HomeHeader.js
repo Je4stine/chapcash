@@ -1,11 +1,10 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Share } from 'react-native';
 import React,{ useEffect, useState} from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { Feather } from '@expo/vector-icons';
+import { Feather, Entypo, EvilIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const HomeHeader = ({onPress, name= 'John Doe', URL }) => {
+const HomeHeader = ({onPress, name= 'John Doe', URL, handleShare }) => {
   const [theUser, setTheUser]=useState('');
   const [imgurl, setimgurl]= useState('');
 
@@ -16,13 +15,35 @@ const HomeHeader = ({onPress, name= 'John Doe', URL }) => {
         const userImage = await AsyncStorage.getItem('image');
         setTheUser(username);
         setimgurl(userImage)
+        console.log('User image', userImage )
       }catch(error){
         console.log(error)
       }
     };
 
+    const onShare = async () => {
+      try {
+        const result = await Share.share({
+          message:
+            'https://www.chapcash.co.ke',
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
+        }
+      } catch (error) {
+        Alert.alert(error.message);
+      }
+    };
+
     useEffect(()=>{
-      getData()
+      getData();
+      console.log(imgurl)
     },[]);
 
   return (
@@ -38,7 +59,11 @@ const HomeHeader = ({onPress, name= 'John Doe', URL }) => {
             <Text style={{ fontFamily:'Montserrat-bold', color:"#5AB500", fontSize:18}}>W001</Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={onPress}><Feather name="search" size={20} color="black" /></TouchableOpacity>
+      <View style={{ flexDirection:'row', alignItems:"center"}}>
+          <TouchableOpacity onPress={onPress} style={{ marginRight:10}}><Feather name="search" size={22} color="black" /></TouchableOpacity>
+          <TouchableOpacity onPress={onShare}><EvilIcons name="share-google" size={35} color="black" /></TouchableOpacity>
+      </View>
+      
     </View>
   )
 };

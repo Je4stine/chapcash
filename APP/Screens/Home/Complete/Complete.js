@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid, ActivityIndicator } from 'react-native';
-import React,{useState, useEffect, useCallback, useRef} from 'react';
+import React,{useState, useEffect, useCallback, useRef, useMemo} from 'react';
 import Message from './Message';
 import { useNavigation } from '@react-navigation/native';
 import DraggableFlatList, {
@@ -7,6 +7,7 @@ import DraggableFlatList, {
   ScaleDecorator,
 } from 'react-native-draggable-flatlist';
 import ShiView from '../../../Components/ShiView';
+import { MaterialIcons } from '@expo/vector-icons';
 
 
 
@@ -43,6 +44,7 @@ const getUserSms = async ()=>{
 };
 
 
+const memoizedData = useMemo(()=>completeMsg, [completeMsg]);
 
 useEffect(() => {
   if (!isSearching) {
@@ -50,14 +52,14 @@ useEffect(() => {
     
     const interval = setInterval(() => {
       getUserSms();
-    }, 10000);
+    }, 5000);
     return () => clearInterval(interval);
   }
 }, [isSearching]);
 
 
 useEffect(() => {
-  if (completeMsg == ''){
+  if (memoizedData == ''){
     setIsLoading(true)
   }
 
@@ -91,17 +93,17 @@ const ItemView =  ({ item }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text1}>Today</Text>
+       <View style={{ borderBottomColor:'#d3d3d3', borderBottomWidth:1, paddingVertical:10, flexDirection:'row', alignItems:'center',}}><Text style={styles.text1}>Today</Text><View><MaterialIcons name="keyboard-arrow-down" size={24} color="gray"/></View></View>
       {
         apploading ?
         (<View>
           <View style={{ marginTop:20,}}><ActivityIndicator size='large'/></View>
         </View>
-        ) :completeMsg.length > 0 ? (
+        ) :memoizedData.length > 0 ? (
         <View style={{ flex:1 }}>
           <DraggableFlatList
                 keyExtractor={(item) => item.id}
-                data={completeMsg}
+                data={memoizedData}
                 renderItem={ItemView}
                 activationDistance={20}
                 showsVerticalScrollIndicator={false}
@@ -137,10 +139,10 @@ const styles = StyleSheet.create({
         
     },
     text1:{
-        color:'#002C11',
+        color:'#5AB500',
         fontFamily:'Montserrat-bold',
         fontSize:18,
-        marginTop:20
+
     },
     contentContainer:{
       flex:1

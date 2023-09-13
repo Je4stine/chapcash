@@ -1,13 +1,15 @@
-import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, Image  } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, Image, Platform  } from 'react-native';
 import React, { useState, useEffect} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, } from '@expo/vector-icons';
 import AddImage from './AddImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as FileSystem from 'expo-file-system';
+import { shareAsync } from 'expo-sharing';
 
 
 const Account = ({navigation}) => {
@@ -16,6 +18,45 @@ const Account = ({navigation}) => {
   const [loading, setLoading]= useState(false);
   const [profileimg, setProfileImg]= useState('');
   const [email, setEmail]= useState('');
+
+  
+  
+  
+  const handleDownload =async()=>{
+    const uri = "https://www.chapcash.mopawa.co.ke/download-excel";
+    const fileName = "payment_reports.xlsx";
+
+    const result = await FileSystem.downloadAsync(
+        "https://www.chapcash.mopawa.co.ke/download-excel",
+
+        FileSystem.documentDirectory + fileName,
+        {
+            headers: {
+              "MyHeader": "MyValue"
+            }
+          }
+    );
+    console.log(result)
+    save(result.uri, fileName, result.headers["Content-Type"])
+    
+  };
+
+  const save =async (uri, fileName, mimetype)=>{
+    const permission = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+    if(permission.granted){
+        const base64 = await FileSystem.readAsStringAsync(uri, {encoding: FileSystem.EncodingType.Base64});
+        await FileSystem.StorageAccessFramework.createFileAsync(permission.directoryUri, fileName, mimetype)
+        .then(async(uri)=>{
+            await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64})
+        })
+        .catch(error=>{
+            console.log(error)
+        });
+    } else{
+        shareAsync(uri)
+    }
+  }
+
 
   const toggleBottomNavigationView = () => {
     setVisible(!visible);
@@ -45,7 +86,7 @@ const Account = ({navigation}) => {
 
 
   const handleLogout= async()=>{
-    setLoading(true)
+    setLoading(true) 
     await AsyncStorage.removeItem('token');
     await AsyncStorage.removeItem('username');
     await AsyncStorage.removeItem('image');
@@ -122,6 +163,23 @@ const handleCommingSoon =()=>{
                 General
             </Text>
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'95%', marginTop:5}}></View>
+
+
+            <TouchableOpacity onPress={handleDownload} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+                <View style={{ flexDirection:'row', alignItems:'center'}}>
+                        <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
+                        <Feather name="download" size={24} color="black" />
+                        </View>
+                        <View>
+                            <Text style={{ fontFamily:'Montserrat-bold', fontSize:17}}>Get Daily Report</Text>
+                        </View>
+                </View>
+            
+                <View >
+                <Entypo name="chevron-right" size={24} color="black" />
+                </View>
+            </TouchableOpacity>
+
 
             <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>

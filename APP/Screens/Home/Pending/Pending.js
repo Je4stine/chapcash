@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, FlatList, RefreshControl, ToastAndroid, ActivityIndicator } from 'react-native';
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useMemo } from 'react';
 import Message from './Message';
 import { useNavigation } from '@react-navigation/native';
 import DraggableFlatList, {
@@ -7,6 +7,7 @@ import DraggableFlatList, {
   ScaleDecorator,
 } from 'react-native-draggable-flatlist';
 import ShiView from '../../../Components/ShiView';
+import { MaterialIcons } from '@expo/vector-icons';
 
 const Pending = () => {
   const [pendingMsg, setPendingMsg] = useState([]);
@@ -35,9 +36,12 @@ const Pending = () => {
       .then((response) => {
         const rev = [...response].reverse();
         setPendingMsg(rev);
+       
       });
   };
 
+  const memoizedData = useMemo(() => pendingMsg, [pendingMsg]);
+  
 
   const groupMessagesByDate = (messages) => {
     const groupedMessages = [];
@@ -57,9 +61,7 @@ const Pending = () => {
     return groupedMessages;
   };
 
-  // useEffect(() => {
-  //   getUserSms();
-  // }, []);
+
 
   useEffect(() => {
     if (!isSearching) {
@@ -67,7 +69,7 @@ const Pending = () => {
       
       const interval = setInterval(() => {
         getUserSms();
-      }, 10000);
+      }, 5000);
       return () => clearInterval(interval);
     }
   }, [isSearching]);
@@ -105,13 +107,13 @@ const Pending = () => {
   };
 
   useEffect(() => {
-    if (pendingMsg == ''){
+    if (memoizedData == ''){
       setIsLoading(true)
     }
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2000); // 10 seconds
+    }, 500); // 10 seconds
 
     return () => clearTimeout(timer);
   }, []);
@@ -119,17 +121,17 @@ const Pending = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text1}>Today</Text>
+       <View style={{ borderBottomColor:'#d3d3d3', borderBottomWidth:1, paddingVertical:10, flexDirection:'row', alignItems:'center',}}><Text style={styles.text1}>Today</Text><View><MaterialIcons name="keyboard-arrow-down" size={24} color="gray"/></View></View>
       {apploading ? (
         <View >
          <View style={{ marginTop:20,}}><ActivityIndicator size='large'/></View>
         </View>
-      ) :pendingMsg.length > 0 ? (
+      ) :memoizedData.length > 0 ? (
         <View style={{ flex:1}}>
         <DraggableFlatList
           showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => item.id}
-          data={pendingMsg}
+          data={memoizedData}
           activationDistance={20}
           renderItem={ItemView}
           refreshControl={
@@ -159,9 +161,9 @@ const styles = StyleSheet.create({
     flex:1
   },
   text1: {
-    color: '#002C11',
+    color: '#5AB500',
     fontFamily: 'Montserrat-bold',
     fontSize: 18,
-    marginTop: 20,
+
   },
 });

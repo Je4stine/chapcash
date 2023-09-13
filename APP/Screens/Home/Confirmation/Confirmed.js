@@ -1,13 +1,18 @@
 import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Clipboard from '@react-native-community/clipboard';
 import { Feather } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
-const Confirmed = ({ navigation, route }) => {
+
+const Confirmed = ({  route }) => {
   const [copiedText, setCopiedText] = useState('');
   const { FirstName, Amount, MSISDN, ID}= route.params;
+  const [person, setPerson] = useState('');
+  const navigation = useNavigation();
 
   const regexPattern = /\b(\w)/g;
   const abrreviate = FirstName.match(regexPattern);
@@ -21,6 +26,16 @@ const Confirmed = ({ navigation, route }) => {
     const text = await Clipboard.getStringAsync();
     setCopiedText(text);
   };
+
+  const getIt = async () => {
+   const username = await AsyncStorage.getItem('username');
+    setPerson(username)
+
+  }
+
+  useEffect(()=>{
+    getIt()
+  },[]);
 
 
   return (
@@ -51,7 +66,7 @@ const Confirmed = ({ navigation, route }) => {
             <Text style={{ color:'#5AB500', fontFamily:'Montserrat-bold', fontSize:20}}>Confirmed</Text>
           </View>
           <Text style={{ color:'gray', fontFamily:'Montserrat-bold'}}>
-            Confirmed By 
+            Confirmed By {person}
           </Text>
       </View>
     </SafeAreaView>
