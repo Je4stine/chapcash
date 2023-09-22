@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React, { useState} from 'react';
 import { AntDesign, Feather } from '@expo/vector-icons';
 
-const Stats = () => {
+const Latest = () => {
 
   return (
     <View style={{ justifyContent:'center', alignItems:'center', marginVertical:18, paddingVertical:20}}>
@@ -14,9 +14,9 @@ const Stats = () => {
         </View>
         
       </View>
-      <Text style={{ color:'#5AB500', fontFamily:'Montserrat-bold', marginRight:20}}>Confirmed today</Text>
+      <Text style={{ color:'#5AB500', fontFamily:'Montserrat-bold', marginRight:20}}>John</Text>
     </View>
   )
 };
 
-export default Stats;
+export default Latest;

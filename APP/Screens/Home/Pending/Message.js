@@ -55,12 +55,12 @@ const Message = ({ FirstName ='John', MSISDN, TransAmount, TransTime, itemRef, h
                           <View style={{ backgroundColor:'#ff0000', width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>
                           <View>
                               <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>{FirstName}</Text>
-                              <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{MSISDN}</Text>
+                              <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:13, marginTop:5}}>{MSISDN}</Text>
                           </View>
                       </View>
                       <View>
                           <Text style={{ fontFamily:'Montserrat-medium' , color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
-                          <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{TransTime}</Text>
+                          <Text style={{alignSelf:"flex-end",fontFamily:'Montserrat-regular', color:'gray', fontSize:13, marginTop:5}}>{TransTime}</Text>
                       </View>
       
                   </SwipeItem>

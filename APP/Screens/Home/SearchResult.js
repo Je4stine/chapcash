@@ -5,7 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
-const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, handleTouch}) => {
+const SearchResult = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, handleTouch, Msgstatus}) => {
     const navigation = useNavigation();
     // const itemRef = useRef(null);
     const regexPattern = /\b(\w)/g;
@@ -23,7 +23,7 @@ const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, 
                 aspectRatio: 1,
                 flexDirection: 'column',
                 padding: 10,
-                backgroundColor:'#5AB500',
+                backgroundColor:Msgstatus?'#5AB500':"red",
                 borderRadius:3
             }}>
             <TouchableOpacity
@@ -50,15 +50,15 @@ const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, 
                   }}
                 >
                 <View style={{ flexDirection:'row', justifyContent:'center', alignItems:'center'}}>
-                    <View style={{ backgroundColor:'#5AB500',width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>
+                    <View style={{ backgroundColor: Msgstatus?'#5AB500':'red',width:36, height:36, borderRadius:25, marginRight:10, justifyContent:'center', alignItems:'center'}}><Text style={{ color:'#fff',fontFamily:'Montserrat-bold', fontSize:16}}>{abrreviate}</Text></View>
                     <View>
                         <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>{FirstName}</Text>
-                        <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:13, marginTop:5}}>{MSISDN}</Text>
+                        <Text style={{ fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{MSISDN}</Text>
                     </View>
                 </View>
                 <View>
                     <Text style={{ fontFamily:'Montserrat-medium', color:'#002C11', fontSize:18}}>+Ksh. {TransAmount}</Text>
-                    <Text style={{alignSelf:"flex-end", fontFamily:'Montserrat-regular', color:'gray', fontSize:13, marginTop:5}}>{TransTime}</Text>
+                    <Text style={{alignSelf:"flex-end", fontFamily:'Montserrat-regular', color:'gray', fontSize:15}}>{TransTime}</Text>
                 </View>
 
             </SwipeItem>
@@ -69,7 +69,7 @@ const Message = ({ FirstName = 'John', MSISDN, TransAmount, TransTime, itemRef, 
 
 //#5AB500
 
-export default Message;
+export default SearchResult;
 
 const styles = StyleSheet.create({
     button: {

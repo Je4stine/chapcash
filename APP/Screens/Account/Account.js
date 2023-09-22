@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity, ToastAndroid, BackHandler, Image, Platform  } from 'react-native';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
@@ -10,6 +10,7 @@ import AddImage from './AddImage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
 import { shareAsync } from 'expo-sharing';
+import { AppContext } from '../../Context/AppContext';
 
 
 const Account = ({navigation}) => {
@@ -18,6 +19,7 @@ const Account = ({navigation}) => {
   const [loading, setLoading]= useState(false);
   const [profileimg, setProfileImg]= useState('');
   const [email, setEmail]= useState('');
+  const { user } = useContext(AppContext)
 
   
   
@@ -66,14 +68,12 @@ const Account = ({navigation}) => {
 
   const getData = async()=>{
     try{
-      const username = await AsyncStorage.getItem('username');
+
       const regexPattern = /\b(\w)/g;
-      const abrreviate = username.match(regexPattern);
+      const abrreviate = user.name.match(regexPattern);
       setAbv(abrreviate);
-      const Prof = await AsyncStorage.getItem('image');
-      const mail = await AsyncStorage.getItem('email');
-      setEmail(mail);
-      setProfileImg(Prof)
+      setEmail(user.email);
+      setProfileImg(user.imageUrl)
 
     }catch(error){
       console.log(error)
@@ -82,7 +82,7 @@ const Account = ({navigation}) => {
 
   useEffect(()=>{
     getData();
-  },[]);
+  },[]);    
 
 
   const handleLogout= async()=>{
@@ -92,7 +92,7 @@ const Account = ({navigation}) => {
     await AsyncStorage.removeItem('image');
     await AsyncStorage.removeItem('email');
     
-    BackHandler.exitApp();
+    navigation.navigate('SignIn')
     setLoading(false)
 
   };
@@ -165,7 +165,7 @@ const handleCommingSoon =()=>{
             <View style={{ backgroundColor:'#D9D9D9', height:0.5, width:'95%', marginTop:5}}></View>
 
 
-            <TouchableOpacity onPress={handleDownload} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
+            {/* <TouchableOpacity onPress={handleDownload} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>
                 <View style={{ flexDirection:'row', alignItems:'center'}}>
                         <View style={{ height:50, width:50, backgroundColor:'#d3d3d3', borderRadius:25, justifyContent:'center', alignItems:'center', marginRight:20, position:'relative'}}>
                         <Feather name="download" size={24} color="black" />
@@ -178,7 +178,7 @@ const handleCommingSoon =()=>{
                 <View >
                 <Entypo name="chevron-right" size={24} color="black" />
                 </View>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
 
             <TouchableOpacity onPress={()=>navigation.navigate('Settings')} style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', marginTop:10, marginBottom:15}}>

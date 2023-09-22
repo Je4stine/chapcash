@@ -35,7 +35,7 @@ import Account from '../Screens/Account/Account';
 import Settings from '../Screens/Account/Settings';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import Privacy from '../Screens/Account/Privacy';
 import Help from '../Screens/Account/Help';
 import RateUs from '../Screens/Account/RateUs';
@@ -43,6 +43,8 @@ import Notification from '../Screens/Account/Notification';
 import Agreements from '../Screens/Account/Agreements';
 import Story from '../Screens/Account/Story';
 import Main from '../Screens/Management/Main';
+import { AppContext } from '../Context/AppContext';
+import UserAnalytics from '../Screens/Analytics/UserAnalytics';
 
 
 
@@ -51,6 +53,7 @@ const Tab = createBottomTabNavigator();
 
 function BottomTabs() {
   const [role, setRole] = useState('admin')
+  const { user } = useContext(AppContext)
     return (
       <Tab.Navigator
         screenOptions={({route}) => ({
@@ -93,7 +96,7 @@ function BottomTabs() {
           }}
         />
        {
-        role === 'admin'?  
+        user.role === 'user'?  
         <Tab.Screen name="Staff" component={Users} 
         options = {{
           tabBarActiveTintColor:"#01722E",
@@ -132,6 +135,7 @@ function BottomTabs() {
     // const { isFirstLaunch, isLoading: onboardingIsLoading } = useGetOnboardingStatus();
     const [showOnboarding, setShowOnboarding] = useState(true);
     const [loggedIn, setLoggedIn] = useState(false);
+    const { user, setUser } = useContext(AppContext);
 
     const checkOnboardingStatus = async () => {
       try {
@@ -154,8 +158,36 @@ function BottomTabs() {
       }
     };
 
+    const getUsers = async ()=>{
+      try{
+        const email = await AsyncStorage.getItem('email');
+
+        const userDetails = await fetch('https://www.chapcash.mopawa.co.ke/api/userDetails',{
+          method : 'POST',
+          headers: {
+            'Accept':'application/json',
+            'Content-type': 'application/json'
+          },
+          body: JSON.stringify({email: email})
+        })
+
+        if (userDetails.status === 200) {
+          const jsonData = await userDetails.json();
+          setUser(jsonData)
+        } else {
+          console.error('Request failed with status:', userDetails.status);
+  
+        }
+
+
+      }catch(error){
+        console.log(error)
+      }
+    }
+
     useEffect(()=>{
       checkOnboardingStatus()
+      getUsers()
     },[]);
 
 
@@ -177,6 +209,8 @@ function BottomTabs() {
         <Stack.Screen name='Rate' component={RateUs} options={{ headerShown: false }} />
         <Stack.Screen name='Notification' component={Notification} options={{ headerShown: false }} />
         <Stack.Screen name='Agreement' component={Agreements} options={{ headerShown: false }} />
+        <Stack.Screen name='Analytics' component={UserAnalytics} options={{ headerShown: false }} />
+        <Stack.Screen name='Story' component={Story} options={{ headerShown: false }} />
       </>
     ) : showOnboarding ? (
       <>
@@ -205,6 +239,7 @@ function BottomTabs() {
         <Stack.Screen name='Notification' component={Notification} options={{ headerShown: false }} />
         <Stack.Screen name='Agreement' component={Agreements} options={{ headerShown: false }} />
         <Stack.Screen name='Story' component={Story} options={{ headerShown: false }} />
+        <Stack.Screen name='Analytics' component={UserAnalytics} options={{ headerShown: false }} />
       </>
     ) : (
       <>
@@ -226,6 +261,7 @@ function BottomTabs() {
         <Stack.Screen name='Privacy' component={Privacy} options={{ headerShown: false }} />
         <Stack.Screen name='Help' component={Help} options={{ headerShown: false }} />
         <Stack.Screen name='Story' component={Story} options={{ headerShown: false }} />
+        <Stack.Screen name='Analytics' component={UserAnalytics} options={{ headerShown: false }} />
       </>
     )}
           

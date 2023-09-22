@@ -6,12 +6,12 @@ const UserCard = () => {
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
-    <View style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:20}}>
+    <View style={{ flexDirection:'row', justifyContent:'space-between', alignItems:'center', padding:10}}>
         <View style={{ flexDirection:'row'}}>
             <View style={{ backgroundColor:'#5AB500', padding:8, borderRadius:28, marginRight:15}}><Text style={{color:'#ffff', fontFamily:'Hank_black', fontSize:20}}>LM</Text></View>
             <View>
-                <Text style={{ fontFamily:'Hank_black', color:'#136207', fontSize:18}}>Lorna May</Text>
-                <Text style={{fontFamily:'Hank_bold', color:'gray', fontSize:15}}>W001</Text>
+                <Text style={{ fontFamily:'Montserrat-bold', color:'#002C11', fontSize:18}}>Lorna May</Text>
+                <Text style={{fontFamily:'Montserrat-regular', color:'gray', fontSize:13,}}>W001</Text>
             </View>
         </View>
         <Switch

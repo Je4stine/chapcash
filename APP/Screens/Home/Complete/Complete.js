@@ -93,7 +93,7 @@ const ItemView =  ({ item }) => {
 
   return (
     <View style={styles.container}>
-       <View style={{ borderBottomColor:'#d3d3d3', borderBottomWidth:1, paddingVertical:10, flexDirection:'row', alignItems:'center',}}><Text style={styles.text1}>Today</Text><View><MaterialIcons name="keyboard-arrow-down" size={24} color="gray"/></View></View>
+       <View style={{ paddingVertical:5, flexDirection:'row', alignItems:'center',}}><Text style={styles.text1}>Today</Text><View><MaterialIcons name="keyboard-arrow-down" size={24} color="gray"/></View></View>
       {
         apploading ?
         (<View>
