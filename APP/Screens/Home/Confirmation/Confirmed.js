@@ -40,7 +40,7 @@ const Confirmed = ({  route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={()=>navigation.goBack()} style={{ position:'absolute', top:50, left:20 }}>
+      <TouchableOpacity onPress={()=>navigation.pop()} style={{ position:'absolute', top:50, left:20 }}>
           <Feather name="arrow-left" size={24} color="black" />
       </TouchableOpacity>
       <View style={{ justifyContent:'center', borderRadius:20,alignItems:'center', backgroundColor:'#fff', width:'90%', paddingVertical:20}}>

@@ -1,10 +1,12 @@
-import { View, Text, TouchableOpacity, Animated  } from 'react-native'
+import { View, Text, TouchableOpacity, Animated, TouchableWithoutFeedback  } from 'react-native'
 import React, { useState} from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import HomeHeader from '../Home/HomeHeader'
 import Stats from '../Home/Stats'
 import TotalUser from './TotalUser';
 import { Feather, AntDesign, Foundation, Ionicons } from '@expo/vector-icons';
+import * as FileSystem from 'expo-file-system';
+import { shareAsync } from 'expo-sharing';
 
 const UserAnalytics = () => {
     const [isExpanded, setIsExpanded] = useState(false);
